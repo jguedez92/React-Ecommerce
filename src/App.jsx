@@ -1,20 +1,20 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 import { BrowserRouter } from 'react-router-dom'
-import { ThemeProvider, makeStyles } from '@material-ui/core/styles'
 
-import theme from './themeConfig.js'
+import 'antd/dist/antd.css';
+
 import NavBar from './components/NavBar.jsx'
 import Views from './views/Index.jsx'
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <NavBar/>
-        <Views />
-      </BrowserRouter>
-    </ThemeProvider>
+      <Fragment>
+        <BrowserRouter>
+          <NavBar/>
+          <Views />
+        </BrowserRouter>  
+      </Fragment> 
   )
 }
 
