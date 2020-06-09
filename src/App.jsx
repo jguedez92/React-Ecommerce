@@ -1,14 +1,19 @@
 import React from 'react'
 
-import { ThemeProvider } from '@material-ui/core/styles'
+import { BrowserRouter } from 'react-router-dom'
+import { ThemeProvider, makeStyles } from '@material-ui/core/styles'
 
 import theme from './themeConfig.js'
 import NavBar from './components/NavBar.jsx'
+import Views from './views/Index.jsx'
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <NavBar/>
+      <BrowserRouter>
+        <NavBar/>
+        <Views />
+      </BrowserRouter>
     </ThemeProvider>
   )
 }

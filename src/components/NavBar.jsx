@@ -1,20 +1,14 @@
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Button from '@material-ui/core/Button';
+import { AppBar, Toolbar, Typography, Menu, MenuItem, Button, Badge, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -124,8 +118,16 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Mi Renting</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+      <NavLink to='/profile' exact>
+        Perfil
+      </NavLink>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+      <NavLink to='/myRenting' exact>
+        Renting
+      </NavLink>
+      </MenuItem>
     </Menu>
   );
 
@@ -198,10 +200,14 @@ export default function Navbar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Button color="primary" variant="contained" disableElevation>
-              Inicio
+              <NavLink to='/' exact>
+                Home
+              </NavLink>
             </Button>
             <Button color="primary" variant="contained" disableElevation>
-              Catalogo
+              <NavLink to='/catalog' exact>
+                Catalogo
+              </NavLink>
             </Button>
             { userExist? (
             <div>
