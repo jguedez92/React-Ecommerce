@@ -1,26 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react'
 
-import {ThemeProvider, makeStyles} from '@material-ui/core'
+import { ThemeProvider } from '@material-ui/core/styles'
+
 import theme from './themeConfig.js'
+import NavBar from './components/NavBar.jsx'
 
-import NavBar from './components/navBar/NavBar.jsx'
-
-const styles = makeStyles(theme => ({
-  root:{
-    display: 'flex'
-  }
-}))
-
-function App() {
-  const classes = styles();
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <NavBar/>
-      <Fragment classNam={classes.root}>
-    
-      </Fragment>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App
