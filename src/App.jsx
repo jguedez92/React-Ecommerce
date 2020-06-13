@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react'
 
 import { BrowserRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import 'antd/dist/antd.css';
 
 import NavBar from './components/NavBar.jsx'
 import Views from './views/Index.jsx'
 
-const App = () => {
+const App = ({user}) => {
   return (
       <Fragment>
         <BrowserRouter>
@@ -17,5 +18,5 @@ const App = () => {
       </Fragment> 
   )
 }
-
-export default App
+const mapStateToProps = state => ({ user: state.user });
+export default connect(mapStateToProps)(App);

@@ -1,77 +1,102 @@
-import React, { Fragment, useState }from 'react'
+import React, { Fragment, useState, useEffect }from 'react'
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { logout } from '../redux/actions/users.js'
+import { notification} from 'antd';
 
-const NavBar = () => {
-  const [userExist, setUserExist] = useState(false)
+const NavBar = ({user,history}) => {
+
+  const disconect = () => {
+    logout()
+    .then( res=>{
+      notification.warning({message:'Desconectado',description:'Se ha cerrado la sesion'})
+      
+  })
+  }
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="col-sm-8 col-md-6  d-flex" >
-        <a className="navbar-brand" href="#">Navbar</a>
-        
-      </div>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
+      <div className="col-md-12 col-lg-4  d-flex justify-content-between" >
+        <NavLink to='/' className="navbar-brand">GoRide</NavLink>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-      <div className="col-md-6 d-flex justify-content-end" >
+      </div>
+      
+      <div className="col-md-8 d-flex justify-content-center" >
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+          <ul className="navbar-nav animated zoomIn" style={{zIndex: 100}}>
+            <li className="nav-item mr-2">
+              <NavLink to='/' exact className="nav-link" >
                 Home
-              </a>
+              </NavLink>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+            <li className="nav-item mr-2">
+              <NavLink to='/catalogo' exact className="nav-link" >
                 Catalogo
-              </a>
+              </NavLink>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                
-              </a>
-            </li>
-            { userExist? (
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Usuario
-                </a>
-                <div className="dropdown-menu" aria-labelledby="userDropdown">
-                  <a className="dropdown-item" href="#">Perfil</a>
-                  <a className="dropdown-item" href="#">Mis Motos</a>
-                  <a className="dropdown-item" href="#">Mis Rentas</a>
-                </div>
-              </li>
-            ) : (
-              <Fragment>
-                <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Registro
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Ingreso
-                </a>
-              </li>
-              </Fragment>
-            )}
-            <li className="nav-item dropdown">
+            <li className="nav-item dropdown mr-2">
               <a className="nav-link dropdown-toggle" href="#" id="faqDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Nosotros
               </a>
               <div className="dropdown-menu" aria-labelledby="faqDropdown">
-                <a className="dropdown-item" href="#">Quienes somos</a>
-                <a className="dropdown-item" href="#">Como Funciona</a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">Covertura de Seugro</a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">Preguntas Frecuentes</a>
+                  <NavLink to='/nosotros' exact className="dropdown-item" >
+                      Quienes Somos?
+                  </NavLink>
+                  <NavLink to='/como_funciona' exact className="dropdown-item" >
+                      Como Funciona?
+                  </NavLink>
+                  <div className="dropdown-divider"></div>
+                  <NavLink to='/covertura_seguro' exact className="dropdown-item" >
+                    Covertura Seguro
+                  </NavLink>
+                  <div className="dropdown-divider"></div>
+                  <NavLink to='/preguntas_frecuentes' exact className="dropdown-item" >
+                    Preguntas Frecuentes
+                  </NavLink>
               </div>
             </li>
+            { user? (
+              <li className="nav-item dropdown mr-4 ">
+                <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Usuario
+                </a>
+                <div className="dropdown-menu" aria-labelledby="userDropdown">
+                  <NavLink to='/perfil' exact className="dropdown-item" >
+                    perfil
+                  </NavLink>
+                  <NavLink to='/mis_motos' exact className="dropdown-item" >
+                    Mis Motos
+                  </NavLink>
+                  <NavLink to='/mis_renting' exact className="dropdown-item" >
+                    Mis Renting
+                  </NavLink>
+                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-item" onClick={disconect}>
+                    Cerrar Sesión
+                  </div>
+                </div>
+              </li>
+            ) : (
+              <Fragment>
+                <li className="nav-item mr-2">
+                <NavLink to='/registro' exact className="nav-link" >
+                  Registro
+                </NavLink>
+              </li>
+              <li className="nav-item mr-2">
+                <NavLink to='/ingreso' exact className="nav-link" >
+                  Ingreso
+                </NavLink>
+              </li>
+              </Fragment>
+            )}
           </ul>
           </div>
       </div>
     </nav>
   )
 }
-
-export default NavBar
+const mapStateToProps = state => ({ user: state.user.user });
+export default connect(mapStateToProps)(NavBar);

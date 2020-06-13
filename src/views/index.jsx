@@ -12,6 +12,7 @@ import Profile from './All/Profile.jsx'
 import Questions from './All/Questions.jsx'
 import Register from './All/Register.jsx'
 import Login from './All/Login.jsx'
+import Confirmation from './All/Confirmation.jsx'
 
 const Views = () => {
     
@@ -28,6 +29,7 @@ const Views = () => {
         <Route path='/preguntas_frecuentes' component={Questions} exact />
         <Route path='/registro' component={Register} exact />
         <Route path='/ingreso' component={Login} exact />
+        <Route path='/confirmation' component={Confirmation} exact />
       </Switch>
     )
 }
