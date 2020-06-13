@@ -1,10 +1,10 @@
-import React, { Fragment, useState, useEffect }from 'react'
+import React, { Fragment }from 'react'
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { logout } from '../redux/actions/users.js'
 import { notification} from 'antd';
 
-const NavBar = ({user,history}) => {
+const NavBar = ({user}) => {
 
   const disconect = () => {
     logout()
@@ -37,9 +37,9 @@ const NavBar = ({user,history}) => {
               </NavLink>
             </li>
             <li className="nav-item dropdown mr-2">
-              <a className="nav-link dropdown-toggle" href="#" id="faqDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div className="nav-link dropdown-toggle" href="#" id="faqDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Nosotros
-              </a>
+              </div>
               <div className="dropdown-menu" aria-labelledby="faqDropdown">
                   <NavLink to='/nosotros' exact className="dropdown-item" >
                       Quienes Somos?
@@ -59,9 +59,9 @@ const NavBar = ({user,history}) => {
             </li>
             { user? (
               <li className="nav-item dropdown mr-4 ">
-                <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div className="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Usuario
-                </a>
+                </div>
                 <div className="dropdown-menu" aria-labelledby="userDropdown">
                   <NavLink to='/perfil' exact className="dropdown-item" >
                     perfil

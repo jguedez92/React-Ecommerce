@@ -1,12 +1,10 @@
 import React from 'react'
-import { Form, Input, Button, Typography, notification } from 'antd';
+import { Form, Input, Button, notification } from 'antd';
 
 import { register } from '../../redux/actions/users.js'
 
 
 const Register = props => {
-
-    const { Title } = Typography;
     const [form] = Form.useForm();
 
     const onFinish = values => {
