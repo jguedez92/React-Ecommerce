@@ -11,16 +11,15 @@ const Catalog = ({ products }) => {
 
     const [productFilter, setproductFilter] = useState(products);
     const [productInfo, setproductInfo] = useState({});
-    const [renderProductDetail, setRenderProductDetail] = useState(true)
+    const [renderProductDetail, setRenderProductDetail] = useState(false)
 
     useEffect(() => {
         getAllProducts();
-        console.log(products)
     }, [])
 
     const onFinish = values => {
         const location = values.city.toLowerCase()
-        const productLocation = productFilter.filter(product => product.city == location)
+        const productLocation = productFilter.filter(product => product.city === location)
         if (productLocation.length < 1) {
             notification.warning({ message: 'Error', description: 'no hay motocicletas disponible para esta localidad' })
         } else {
@@ -33,11 +32,15 @@ const Catalog = ({ products }) => {
         setRenderProductDetail(true)
     }
 
+    function closeProductDetails() {
+        setRenderProductDetail(false)
+    }
+
     return (
         <Fragment>
             {renderProductDetail ? (
                 <div>
-                    <ProductDetails product={productInfo} />
+                    <ProductDetails product={productInfo} closeDetails={closeProductDetails} />
                 </div>) :
                 (
                     <div>
@@ -58,16 +61,16 @@ const Catalog = ({ products }) => {
                                 <div className="col-sm-12 col-md-3">
 
                                 </div>
-                                <div className="col-sm-12 col-md-9">
+                                <div className="col-sm-12 col-md-9 animated bounceInRight">
                                     <div className="row">
                                         {productFilter?.map(product =>
                                             <div className=" col-sm-9 col-md-4 ">
                                                 <div className="card mb-4 shadow-sm">
-                                                    <img src={imgDefault} alt="..." class="img-thumbnail p-1 rounded" />
+                                                    <img src={imgDefault} alt="..." className="img-thumbnail p-1 rounded" />
                                                     <div className="card-body">
                                                         <div className="d-inline-block">
                                                             Licencia &nbsp;
-                                                <strong class="mb-2 text-success">
+                                                <strong className="mb-2 text-success">
                                                                 {product.required_license}
                                                             </strong>
                                                         </div>
@@ -80,10 +83,10 @@ const Catalog = ({ products }) => {
                                                             {product.city}
                                                         </p>
                                                         <div className="d-flex justify-content-between align-items-center">
-                                                            <button className="btn btn-sm btn-outline-secondary mr-2" 
-                                                            onClick={() => productDetails(product)}>
+                                                            <button className="btn btn-sm btn-outline-secondary mr-2"
+                                                                onClick={() => productDetails(product)}>
                                                                 Detalles
-                                                </button>
+                                                            </button>
                                                             <small className="text-muted text-center">
                                                                 <span className="font-weight-bolder d-inline-block">
                                                                     Precio por dia &nbsp;

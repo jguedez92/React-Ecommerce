@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import 'antd/dist/antd.css';
 
 import NavBar from './components/NavBar.jsx'
+import Footer from './components/Footer.jsx'
 import Views from './views/index.jsx'
 
 const App = ({user}) => {
@@ -15,6 +16,7 @@ const App = ({user}) => {
           <NavBar/>
           <Views />
         </BrowserRouter>  
+        <Footer/>
       </Fragment> 
   )
 }
