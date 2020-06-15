@@ -97,7 +97,7 @@ const ProductDetails = (props) => {
                                         <h6> {product.user.fullName} </h6>
                                     </div>
                                     <div classNAme=" col-6 text-center">
-                                        <Rate className="my-2" disabled defaultValue={2} />
+                                        <Rate className="my-2" disabled defaultValue={4} />
                                         <h6>Valoraciones</h6>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@ const ProductDetails = (props) => {
                                                     <strong>Año: </strong> {product.year}
                                                 </div>
                                                 <div className="col-4 d-flex my-2">
-                                                    <strong>Motor: </strong> {product.motor}
+                                                    <strong>Motor: </strong> {product.motor} CC.
                                                 </div>
                                                 <div className="col-6 d-flex my-2 justify-content-center ">
                                                     <strong>Licencia: </strong> {product.required_license}
@@ -164,7 +164,7 @@ const ProductDetails = (props) => {
                 </div>
                 <div className="col-sm-12 col-md-3 order-md-2 p-2">
                     <div className="row p-2">
-                        <div className="container mt-5 bg-light">
+                        <div className="container rounded shadow-sm mt-5 bg-light">
                             <h4 className="mt-3 text-center">
                                 Informacion de Renta
                             </h4>

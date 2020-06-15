@@ -15,6 +15,13 @@ export const login = async(credentials) => {
         payload: res.data.user
     });
 }
+export const updatePassword = async(user) => {
+    const res = await axios.post(API_URL + 'users/uploadPassword', user, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('authToken')
+        }
+    });
+}
 export const updateProfile = async(user) => {
     const res = await axios.put(API_URL + 'users', user, {
         headers: {
