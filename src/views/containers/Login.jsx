@@ -37,7 +37,7 @@ const Login = (props) => {
                             <Form.Item label="Password" name="password" rules={[{ required: true, message: 'ingresa tu contraseña' }]}>
                                 <Input.Password />
                             </Form.Item>
-                            <div className="">
+                            <div className="text-center">
                                 <Form.Item >
                                     <Button type="primary" htmlType="submit"> Ingresar </Button>
                                 </Form.Item>

@@ -16,7 +16,7 @@ export const login = async(credentials) => {
     });
 }
 export const updatePassword = async(user) => {
-    const res = await axios.post(API_URL + 'users/uploadPassword', user, {
+    await axios.post(API_URL + 'users/uploadPassword', user, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('authToken')
         }
@@ -29,18 +29,18 @@ export const updateProfile = async(user) => {
         }
     });
     store.dispatch({
-        type: 'SET_USER',
+        type: 'PUT_USER',
         payload: res.data
     });
 }
-export const getUserInfo = async(user) => {
-    const res = await axios.get(API_URL + 'users/info', {
+export const refreshUser = async() => {
+    const res = await axios.get(API_URL + 'users/getByAuth', {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('authToken')
         }
     });
     store.dispatch({
-        type: 'SET_USER',
+        type: 'GET_USER',
         payload: res.data
     });
 }
@@ -53,7 +53,8 @@ export const logout = async() => {
     })
     localStorage.removeItem('authToken');
     store.dispatch({
-        type: 'LOGOUT'
+        type: 'LOGOUT',
+        payload: undefined
     })
     return res;
 }

@@ -8,8 +8,9 @@ import './views.scss'
 const ProductDetails = (props) => {
 
     const closeDetails = props.closeDetails
+    const user = props.user
     const product = props.product
-    console.log(product)
+    console.log(product, user)
     const [rentDays, setRendDays] = useState(1)
 
     let costRent = product.price * rentDays
@@ -50,6 +51,9 @@ const ProductDetails = (props) => {
 
     function onChange(value) {
         setRendDays(value[0])
+    }
+    const generateOrder = ()=>{
+        console.log('entrando')
     }
 
     return (
@@ -96,7 +100,7 @@ const ProductDetails = (props) => {
                                         <Avatar className="mx-auto" size={70} icon={<UserOutlined />} />
                                         <h6> {product.user.fullName} </h6>
                                     </div>
-                                    <div classNAme=" col-6 text-center">
+                                    <div className=" col-6 text-center">
                                         <Rate className="my-2" disabled defaultValue={4} />
                                         <h6>Valoraciones</h6>
                                     </div>
@@ -204,6 +208,9 @@ const ProductDetails = (props) => {
                                     <div className="col-6 mt-2 text-right">
                                         <h4>{costTotal} €</h4>
                                     </div>
+                                    { user && (
+                                        <button className="btn btn-outline-info" onClick={generateOrder}> Rentar </button>
+                                    )}
                                 </div>
                             </div>
                             <div className="border-top col-12 mt-2 p-4">
@@ -224,5 +231,6 @@ const ProductDetails = (props) => {
         </div>
     )
 }
+
 
 export default ProductDetails

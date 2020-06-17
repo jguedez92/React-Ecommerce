@@ -10,3 +10,10 @@ export const getAllProducts = async() => {
     });
     return res;
 }
+export const insertProduct = async(product) => {
+    const res = await axios.post(API_URL + 'products/insert', product, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('authToken')
+        }
+    });
+}

@@ -11,12 +11,11 @@ const NavBar = ({user}) => {
     logout()
     .then( res=>{
       notification.warning({message:'Desconectado',description:'Se ha cerrado la sesion'})
-      
   })
   }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
+    <nav id="nav-bar" className="navbar navbar-expand-lg navbar-light bg-light shadow">
       <div className="col-md-12 col-lg-4  d-flex justify-content-between" >
         <NavLink to='/' className="navbar-brand">
           <img src={logo} className="m-0" height="45" alt="logo"/>

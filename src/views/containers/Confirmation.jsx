@@ -13,7 +13,7 @@ const Confirmation = (props) => {
 
     return (
         <div className="row d-flex justify-content-center">
-            <div class="jumbotron mt-5 animated bounceInLeft">
+            <div class="jumbotron jumbotron-confirmation mt-5 animated bounceInLeft">
                 <div className="card">
                     <div className="card-body font-weight-bolder text-center">
                         <h1 class="display-4 font-weight-bold">Cuenta Activada!</h1>
