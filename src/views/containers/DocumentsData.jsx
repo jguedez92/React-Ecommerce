@@ -1,9 +1,8 @@
 import React from 'react'
-import { Upload, message, Button } from 'antd';
+import { Avatar, Upload, message, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import imgDefault from '../../public/images/imgDefault.png'
 import { refreshUser } from '../../redux/actions/users'
-import { Avatar } from 'antd';
 import { connect } from 'react-redux'
 import { IMAGES_URL } from '../../api-config';
 

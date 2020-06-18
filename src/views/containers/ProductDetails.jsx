@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Cascader, Avatar, Rate } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 
+import { IMAGES_URL } from '../../api-config';
 import imgDefault from '../../public/images/imgDefault.png'
 import './views.scss'
 
@@ -52,7 +53,7 @@ const ProductDetails = (props) => {
     function onChange(value) {
         setRendDays(value[0])
     }
-    const generateOrder = ()=>{
+    const generateOrder = () => {
         console.log('entrando')
     }
 
@@ -64,17 +65,25 @@ const ProductDetails = (props) => {
                         <div className="card galery-product m-3 p-2">
                             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src={imgDefault} class="d-block w-100" alt="..." />
+                                    <div className="carousel-item active">
+                                        {product.image_path_1 ?
+                                            (<img src={IMAGES_URL + 'products/' + product.image_path_1} className="d-block img-thumbnail w-100" alt="..." />)
+                                            : (<img src={imgDefault} className="d-block img-thumbnail w-100" alt="..." />)}
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src={imgDefault} class="d-block w-100" alt="..." />
+                                    <div className="carousel-item">
+                                        {product.image_path_2 ?
+                                            (<img src={IMAGES_URL + 'products/' + product.image_path_2} className="d-block img-thumbnail w-100" alt="..." />)
+                                            : (<img src={imgDefault} className="d-block img-thumbnail w-100" width="400" alt="..." />)}
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src={imgDefault} class="d-block w-100" alt="..." />
+                                    <div className="carousel-item">
+                                        {product.image_path_3 ?
+                                            (<img src={IMAGES_URL + 'products/' + product.image_path_3} className="d-block img-thumbnail w-100" alt="..." />)
+                                            : (<img src={imgDefault} className="d-block img-thumbnail w-100" alt="..." />)}
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src={imgDefault} class="d-block w-100" alt="..." />
+                                    <div className="carousel-item">
+                                        {product.image_path_4 ?
+                                            (<img src={IMAGES_URL + 'products/' + product.image_path_4} className="d-block img-thumbnail w-100" alt="..." />)
+                                            : (<img src={imgDefault} className="d-block img-thumbnail w-100" alt="..." />)}
                                     </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -146,7 +155,7 @@ const ProductDetails = (props) => {
                             <div className="container col-12 text-justify p-2">
                                 <div className="row">
                                     <p>
-                                    {product.description}
+                                        {product.description}
                                     </p>
                                 </div>
                             </div>
@@ -157,7 +166,7 @@ const ProductDetails = (props) => {
                                 <div className="row">
                                     <ul>
                                         <li>Edad minima de 23 años.</li>
-                                        <li>Antigüedad mínima de 2 años en el carnet que habilita a 
+                                        <li>Antigüedad mínima de 2 años en el carnet que habilita a
                                             la conducción de la moto que vas a alquilar.</li>
                                         <li>Residir en la misma ciudad o provincia que el propieario.</li>
                                     </ul>
@@ -208,7 +217,7 @@ const ProductDetails = (props) => {
                                     <div className="col-6 mt-2 text-right">
                                         <h4>{costTotal} €</h4>
                                     </div>
-                                    { user && (
+                                    {user && (
                                         <button className="btn btn-outline-info" onClick={generateOrder}> Rentar </button>
                                     )}
                                 </div>

@@ -6,16 +6,17 @@ import { Form, Input, Cascader, notification } from 'antd';
 import { getAllProducts } from '../../redux/actions/products'
 import imgDefault from '../../public/images/imgDefault.png'
 import ProductDetails from './ProductDetails'
+import { IMAGES_URL } from '../../api-config';
 
 import { categoryOptions, motorOptions, brandOptions, yearOptions, licenceOptions } from '../elements/optionsFilter.jsx'
 
 const Catalog = (props) => {
-    
+
     useEffect(() => {
         getAllProducts()
-    }, [])
-    
-    const products = props.products.filter( product => product.status_for_renting === 'enabled')
+    }, [props.user])
+
+    const products = props.products.filter(product => product.status_for_renting === 'enabled')
     const user = props.user
     const [productFilter, setProductFilter] = useState(products);
     const [productInfo, setProductInfo] = useState({});
@@ -32,7 +33,7 @@ const Catalog = (props) => {
         const location = value.city.toLowerCase()
         const productLocation = productFilter.filter(product => product.city === location)
         if (productLocation.length < 1) {
-            notification.warning({ message: 'Error', description: 'no hay motocicletas disponibles para la localidad de '+location })
+            notification.warning({ message: 'Error', description: 'no hay motocicletas disponibles para la localidad de ' + location })
         } else {
             setProductFilter(productLocation)
         }
@@ -77,7 +78,7 @@ const Catalog = (props) => {
         if (value[0] !== undefined) {
             const productBrand = productFilter.filter(product => product.brand === value[0])
             if (productBrand.length < 1) {
-                notification.warning({ message: 'Error', description: 'no hay motocicletas disponible con la Marca '+value[0] })
+                notification.warning({ message: 'Error', description: 'no hay motocicletas disponible con la Marca ' + value[0] })
             } else {
                 setProductFilter(productBrand)
             }
@@ -102,7 +103,7 @@ const Catalog = (props) => {
                                     <Input placeholder="Introduzca la localidad... ej: Madrid" />
                                 </Form.Item>
                                 <Form.Item >
-                                    <button className="btn btn-sm btn-outline-info"  type="submit">
+                                    <button className="btn btn-sm btn-outline-info" type="submit">
                                         Buscar
                                     </button>
                                 </Form.Item>
@@ -165,7 +166,9 @@ const Catalog = (props) => {
                                         {productFilter?.map(product =>
                                             <div className=" col-sm-9 col-md-4 ">
                                                 <div className="card mb-4 shadow-sm">
-                                                    <img src={imgDefault} alt="..." className="img-thumbnail p-1 rounded" />
+                                                    {product.image_path_1 ?
+                                                        (<img src={IMAGES_URL + 'products/' + product.image_path_1} className="img-thumbnail p-1 rounded" alt="..." />)
+                                                        : (<img src={imgDefault} alt="..." className="img-thumbnail p-1 rounded" />)}
                                                     <div className="card-body">
                                                         <div className="d-inline-block">
                                                             Licencia &nbsp;
@@ -212,5 +215,5 @@ const Catalog = (props) => {
         </Fragment>
     )
 }
-const mapStateToProps = ( state ) => ({ products: state.product.products, user: state.user.user });
+const mapStateToProps = (state) => ({ products: state.product.products, user: state.user.user });
 export default connect(mapStateToProps)(Catalog);

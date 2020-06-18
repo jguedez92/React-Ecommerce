@@ -1,4 +1,4 @@
-import React, { Fragment }from 'react'
+import React, { Fragment}from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../redux/actions/users.js'
@@ -75,7 +75,7 @@ const NavBar = ({user}) => {
                     Mis Renting
                   </NavLink>
                   <div className="dropdown-divider"></div>
-                  <div className="dropdown-item" onClick={disconect}>
+                  <div className="dropdown-item" onClick={disconect} style={{cursor:'pointer'}}>
                     Cerrar Sesión
                   </div>
                 </div>
