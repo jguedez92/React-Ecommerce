@@ -1,41 +1,41 @@
-import React, { useEffect, Fragment}from 'react'
+import React, { useEffect, Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../redux/actions/users.js'
 import { getAllOrders } from '../redux/actions/orders.js'
 import { getAllProducts } from '../redux/actions/products.js'
-import { notification} from 'antd'
+import { notification } from 'antd'
 import logo from '../public/images/logo.png'
 
-const NavBar = ({user}) => {
+const NavBar = ({ user }) => {
 
   useEffect(() => {
     getAllProducts()
     getAllOrders()
-}, [user])
+  }, [user])
 
 
   const disconect = () => {
     logout()
-    .then( res=>{
-      notification.warning({message:'Desconectado',description:'Se ha cerrado la sesion'})
-  })
+      .then(res => {
+        notification.warning({ message: 'Desconectado', description: 'Se ha cerrado la sesion' })
+      })
   }
 
   return (
     <nav id="nav-bar" className="navbar navbar-expand-lg navbar-light bg-light shadow">
       <div className="col-md-12 col-lg-4  d-flex justify-content-between" >
         <NavLink to='/' className="navbar-brand">
-          <img src={logo} className="m-0" height="45" alt="logo"/>
+          <img src={logo} className="m-0" height="45" alt="logo" />
         </NavLink>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
       </div>
-      
+
       <div className="col-md-8 d-flex justify-content-center" >
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav animated zoomIn" style={{zIndex: 100}}>
+          <ul className="navbar-nav animated zoomIn" style={{ zIndex: 100 }}>
             <li className="nav-item mr-2">
               <NavLink to='/' exact className="nav-link" >
                 Home
@@ -51,60 +51,81 @@ const NavBar = ({user}) => {
                 Nosotros
               </div>
               <div className="dropdown-menu" aria-labelledby="faqDropdown">
-                  <NavLink to='/nosotros' exact className="dropdown-item" >
-                      Quienes Somos?
+                <NavLink to='/nosotros' exact className="dropdown-item" >
+                  Quienes Somos?
                   </NavLink>
-                  <NavLink to='/como_funciona' exact className="dropdown-item" >
-                      Como Funciona?
+                <NavLink to='/como_funciona' exact className="dropdown-item" >
+                  Como Funciona?
                   </NavLink>
-                  <div className="dropdown-divider"></div>
-                  <NavLink to='/covertura_seguro' exact className="dropdown-item" >
-                    Covertura Seguro
+                <div className="dropdown-divider"></div>
+                <NavLink to='/covertura_seguro' exact className="dropdown-item" >
+                  Covertura Seguro
                   </NavLink>
-                  <div className="dropdown-divider"></div>
-                  <NavLink to='/preguntas_frecuentes' exact className="dropdown-item" >
-                    Preguntas Frecuentes
+                <div className="dropdown-divider"></div>
+                <NavLink to='/preguntas_frecuentes' exact className="dropdown-item" >
+                  Preguntas Frecuentes
                   </NavLink>
               </div>
             </li>
-            { user? (
+            {user ? (
               <li className="nav-item dropdown mr-4 ">
                 <div className="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Usuario
                 </div>
-                <div className="dropdown-menu" aria-labelledby="userDropdown">
-                  <NavLink to='/perfil' exact className="dropdown-item" >
-                    perfil
-                  </NavLink>
-                  <NavLink to='/mis_motos' exact className="dropdown-item" >
-                    Mis Motos
-                  </NavLink>
-                  <NavLink to='/mis_renting' exact className="dropdown-item" >
-                    Mis Renting
-                  </NavLink>
-                  <div className="dropdown-divider"></div>
-                  <div className="dropdown-item" onClick={disconect} style={{cursor:'pointer'}}>
-                    Cerrar Sesión
+                {user.role === 'admin' ? (
+                  <div className="dropdown-menu" aria-labelledby="userDropdown">
+                    <NavLink to='/perfil' exact className="dropdown-item" >
+                      perfil
+                    </NavLink>
+                    <NavLink to='/usuarios' exact className="dropdown-item" >
+                      Usuarios
+                    </NavLink>
+                    <NavLink to='/motos' exact className="dropdown-item" >
+                      Motos
+                    </NavLink>
+                    <NavLink to='/rentings' exact className="dropdown-item" >
+                      Rentings
+                    </NavLink>
+                    <div className="dropdown-divider"></div>
+                  <div className="dropdown-item" onClick={disconect} style={{ cursor: 'pointer' }}>
+                      Cerrar Sesión
                   </div>
                 </div>
+                ) : (
+                    <div className="dropdown-menu" aria-labelledby="userDropdown">
+                      <NavLink to='/perfil' exact className="dropdown-item" >
+                        perfil
+                        </NavLink>
+                      <NavLink to='/mis_motos' exact className="dropdown-item" >
+                        Mis Motos
+                        </NavLink>
+                      <NavLink to='/mis_renting' exact className="dropdown-item" >
+                        Mis Renting
+                        </NavLink>
+                      <div className="dropdown-divider"></div>
+                      <div className="dropdown-item" onClick={disconect} style={{ cursor: 'pointer' }}>
+                        Cerrar Sesión
+                        </div>
+                    </div>
+                  )}
               </li>
-            ) : (
-              <Fragment>
-                <li className="nav-item mr-2">
-                <NavLink to='/registro' exact className="nav-link" >
-                  Registro
+                ) : (
+                    <Fragment>
+                      <li className="nav-item mr-2">
+                        <NavLink to='/registro' exact className="nav-link" >
+                          Registro
                 </NavLink>
-              </li>
-              <li className="nav-item mr-2">
-                <NavLink to='/ingreso' exact className="nav-link" >
-                  Ingreso
+                      </li>
+                      <li className="nav-item mr-2">
+                        <NavLink to='/ingreso' exact className="nav-link" >
+                          Ingreso
                 </NavLink>
-              </li>
-              </Fragment>
-            )}
+                      </li>
+                    </Fragment>
+                  )}
           </ul>
-          </div>
-      </div>
+        </div>
+        </div>
     </nav>
   )
 }
