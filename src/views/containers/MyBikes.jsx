@@ -18,29 +18,29 @@ const MyBikes = ({ user }) => {
         },
         onChange(info) {
             if (info.file.status === 'done') {
-                notification.success({ message: 'Cargado', description:`${info.file.name} archivo cargado satisfactoriamente`})
+                notification.success({ message: 'Cargado', description: `${info.file.name} archivo cargado satisfactoriamente` })
                 refreshUser()
             } else if (info.file.status === 'error') {
-                notification.error({ message: 'Error', description:`${info.file.name} - Ha ocurrido un error al cargar el archivo.`})
+                notification.error({ message: 'Error', description: `${info.file.name} - Ha ocurrido un error al cargar el archivo.` })
             }
         },
     };
 
     function confirm(id) {
         deleteProduct(id)
-        .then(res =>{
-            notification.success({ message: 'Eliminado', description: 'Producto eliminado satisfactoriamente'})
-            refreshUser()
-        })
-        .catch(error =>{
-            notification.error({ message: 'Error', description: 'Ha ocurrido un error'})
-        })
-      }
-      
-      function cancel(e) {
+            .then(res => {
+                notification.success({ message: 'Eliminado', description: 'Producto eliminado satisfactoriamente' })
+                refreshUser()
+            })
+            .catch(error => {
+                notification.error({ message: 'Error', description: 'Ha ocurrido un error' })
+            })
+    }
+
+    function cancel(e) {
         message.error('Cancelado');
-      }
-      
+    }
+
 
     return (
         <Fragment>
@@ -57,16 +57,26 @@ const MyBikes = ({ user }) => {
                         </NavLink>
                     </button>
                 </div>
-                <div className="row d-flex justify-content-center">
+                <div className="row d-flex justify-content-center ">
 
                     {user.product < 1 ? (
-                        <div className="col-12">
-                            No hay Motos registradas con este usuario
+                        <div className="row d-flex justify-content-center align-items-center animated bounceInLeft shadow" style={{ height: 450 }}>
+                            <div className="card card-empty">
+                                <div className="card-body p-4">
+                                    <span className="mr-2">
+                                        <svg class="bi bi-clock" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" />
+                                            <path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+                                        </svg>
+                                    </span>
+                                No hay Motos Registradas...
+                            </div>
+                            </div>
                         </div>
                     ) : (
                             user.product.map(product => (
                                 <div className="col-sm-12 col-md-6 mt-3">
-                                    <div className="card">
+                                    <div className="card animated zoomIn">
                                         <div className="card-header" id={"heading" + product.id}>
                                             <div className="row pr-3">
                                                 <h2 className="mb-0">
@@ -198,17 +208,17 @@ const MyBikes = ({ user }) => {
                                                 )}
                                                 {product.status_for_renting !== 'renting' && (
                                                     <Popconfirm
-                                                    title="Está seguro que desea eliminar esta moto?"
-                                                    onConfirm={() => confirm(product.id)}
-                                                    onCancel={cancel}
-                                                    okText="si"
-                                                    cancelText="No"
-                                                  >
-                                                    <button className="btn btn-outline-danger">
-                                                        Eliminar
+                                                        title="Está seguro que desea eliminar esta moto?"
+                                                        onConfirm={() => confirm(product.id)}
+                                                        onCancel={cancel}
+                                                        okText="si"
+                                                        cancelText="No"
+                                                    >
+                                                        <button className="btn btn-outline-danger">
+                                                            Eliminar
                                                     </button>
-                                                  </Popconfirm>
-                                                    
+                                                    </Popconfirm>
+
                                                 )}
                                             </div>
                                         </div>
@@ -299,7 +309,7 @@ const MyBikes = ({ user }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="modal fade" id={'modalEdit' + product.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog">
                                                 <div className="modal-content">

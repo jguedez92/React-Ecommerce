@@ -5,24 +5,17 @@ import { IMAGES_URL } from '../../api-config';
 
 
 const ProfileData = ({ user }) => {
-
-    const infoUser = user
-    console.log(infoUser)
-
     return (
         <div className="row p-1 d-flex justify-content-center">
-            <div className="card shadow-sm animated bounceInRight">
+            <div className="card shadow animated bounceInRight">
                 <div className="card-body">
                     <div className="row d-flex">
                         <div className="col-3 border-right">
                             <div className="row d-block text-center">
                                 <div className=" my-2 d-flex justify-content-center">
                                     {user.profile_image_path ? (
-
                                         <Avatar size={100} src={IMAGES_URL + 'users/' + user.profile_image_path} />
-
                                     ) : (
-
                                             <Avatar className=" d-flex justify-content-center align-items-center" size={100} style={{ color: '#000', backgroundColor: '#698EB8' }}>
                                                 {user.fullName[0].toUpperCase()}
                                             </Avatar>
@@ -81,12 +74,12 @@ const ProfileData = ({ user }) => {
                 )}
             {user.status_for_renting === 'enabled' &&
                 (
-                    <div className="alert alert-succes mt-4 animated bounceInUp">
+                    <div className="alert alert-success mt-4 animated bounceInUp">
                         <strong>Su cuenta esta Habilitada!</strong>
                         <p className="text-justify">
                             Su cuenta esta actualmente habilitada para rentar motocicletas, asi que
                             GO RIDE!
-                    </p>
+                        </p>
                     </div>
                 )}
 

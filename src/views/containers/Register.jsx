@@ -1,4 +1,4 @@
-import React, { useState }from 'react'
+import React,{ useState }from 'react'
 import { Form, Input, Button, notification } from 'antd';
 
 import { register } from '../../redux/actions/users.js'

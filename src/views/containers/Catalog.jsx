@@ -1,9 +1,6 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
 import { connect } from 'react-redux'
-
 import { Form, Input, Cascader, notification } from 'antd';
-
-import { getAllProducts } from '../../redux/actions/products'
 import imgDefault from '../../public/images/imgDefault.png'
 import ProductDetails from './ProductDetails'
 import { IMAGES_URL } from '../../api-config';
@@ -11,10 +8,6 @@ import { IMAGES_URL } from '../../api-config';
 import { categoryOptions, motorOptions, brandOptions, yearOptions, licenceOptions } from '../elements/optionsFilter.jsx'
 
 const Catalog = (props) => {
-
-    useEffect(() => {
-        getAllProducts()
-    }, [props.user])
 
     const products = props.products.filter(product => product.status_for_renting === 'enabled')
     const user = props.user
@@ -30,6 +23,7 @@ const Catalog = (props) => {
     }
 
     const locationFilter = (value) => {
+        console.log(value)
         const location = value.city.toLowerCase()
         const productLocation = productFilter.filter(product => product.city === location)
         if (productLocation.length < 1) {
@@ -215,5 +209,5 @@ const Catalog = (props) => {
         </Fragment>
     )
 }
-const mapStateToProps = (state) => ({ products: state.product.products, user: state.user.user });
+const mapStateToProps = ({products, user}) => ({ products: products.products, user: user.user });
 export default connect(mapStateToProps)(Catalog);

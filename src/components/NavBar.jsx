@@ -1,11 +1,19 @@
-import React, { Fragment}from 'react'
+import React, { useEffect, Fragment}from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../redux/actions/users.js'
+import { getAllOrders } from '../redux/actions/orders.js'
+import { getAllProducts } from '../redux/actions/products.js'
 import { notification} from 'antd'
 import logo from '../public/images/logo.png'
 
 const NavBar = ({user}) => {
+
+  useEffect(() => {
+    getAllProducts()
+    getAllOrders()
+}, [user])
+
 
   const disconect = () => {
     logout()

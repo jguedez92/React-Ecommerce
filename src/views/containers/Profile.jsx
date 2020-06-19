@@ -34,9 +34,9 @@ const Profile = ({ user, history }) => {
 
     return (
         <Fragment>
-            <div class="jumbotron jumbotron-profile jumbotron-fluid d-none d-md-block border-bottom">
-                <div class="card col-6 my-5 mx-auto">
-                    <h1 class="display-4 font-weight-bold text-center">Perfil de suario</h1>
+            <div className="jumbotron jumbotron-profile jumbotron-fluid d-none d-md-block border-bottom">
+                <div className="card col-6 my-5 mx-auto">
+                    <h1 className="display-4 font-weight-bold text-center">Perfil de suario</h1>
                 </div>
             </div>
             <div className="container mb-md-5">
