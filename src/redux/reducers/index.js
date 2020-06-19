@@ -1,10 +1,12 @@
 import user from "./user";
-import product from "./product";
+import products from "./product";
+import orders from "./order";
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
     user,
-    product
+    products,
+    orders
 });
 
 export default rootReducer;

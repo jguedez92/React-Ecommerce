@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useState }from 'react'
 import { Form, Input, Button, notification } from 'antd';
 
 import { register } from '../../redux/actions/users.js'
@@ -6,8 +6,10 @@ import { register } from '../../redux/actions/users.js'
 
 const Register = props => {
     const [form] = Form.useForm();
+    const [loading, setLoading] = useState(false)
 
     const onFinish = values => {
+        setLoading(true)
         const user = {
             fullName: values.fullName,
             email: values.email,
@@ -15,12 +17,14 @@ const Register = props => {
         }
         register(user)
             .then(res => {
+                setLoading(false)
                 notification.success({ message: 'Register', description: 'Se ha enviado un correo de confirmacion a su bandeja de entrada' })
                 setTimeout(() => {
                     props.history.push('/')
                 }, 1500);
             })
             .catch(res => {
+                setLoading(false)
                 notification.error({ message: 'Register', description: res.response.data })
             })
     };
@@ -82,9 +86,9 @@ const Register = props => {
                                     </Form.Item>
                                     <div className="container d-flex justify-content-center">
                                         <Form.Item >
-                                            <Button type="primary" htmlType="submit">
-                                                Register
-                                                </Button>
+                                            <Button type="primary" htmlType="submit" loading={loading}>
+                                                {loading ? ('Cargando...') : ('Registrar')}
+                                            </Button>
                                         </Form.Item>
                                     </div>
                                 </Form>
@@ -97,7 +101,4 @@ const Register = props => {
 
     );
 };
-
-
-
 export default Register;

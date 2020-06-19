@@ -1,22 +1,29 @@
-import React, { Fragment }from 'react'
+import React, { useEffect, Fragment}from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../redux/actions/users.js'
+import { getAllOrders } from '../redux/actions/orders.js'
+import { getAllProducts } from '../redux/actions/products.js'
 import { notification} from 'antd'
 import logo from '../public/images/logo.png'
 
 const NavBar = ({user}) => {
 
+  useEffect(() => {
+    getAllProducts()
+    getAllOrders()
+}, [user])
+
+
   const disconect = () => {
     logout()
     .then( res=>{
       notification.warning({message:'Desconectado',description:'Se ha cerrado la sesion'})
-      
   })
   }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
+    <nav id="nav-bar" className="navbar navbar-expand-lg navbar-light bg-light shadow">
       <div className="col-md-12 col-lg-4  d-flex justify-content-between" >
         <NavLink to='/' className="navbar-brand">
           <img src={logo} className="m-0" height="45" alt="logo"/>
@@ -76,7 +83,7 @@ const NavBar = ({user}) => {
                     Mis Renting
                   </NavLink>
                   <div className="dropdown-divider"></div>
-                  <div className="dropdown-item" onClick={disconect}>
+                  <div className="dropdown-item" onClick={disconect} style={{cursor:'pointer'}}>
                     Cerrar Sesión
                   </div>
                 </div>

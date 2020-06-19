@@ -6,4 +6,4 @@ if (window.location.href.includes('localhost')) {
 }
 console.log(backendHost)
 export const API_URL = `${backendHost}/`;
-export const IMAGES_URL = `${backendHost}/images/`;
+export const IMAGES_URL = `http://localhost:8000/images/`;

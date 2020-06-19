@@ -1,23 +1,19 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
 import { connect } from 'react-redux'
-
-import { Form, Input, Button, Cascader, notification } from 'antd';
-
-import { getAllProducts } from '../../redux/actions/products'
+import { Form, Input, Cascader, notification } from 'antd';
 import imgDefault from '../../public/images/imgDefault.png'
 import ProductDetails from './ProductDetails'
+import { IMAGES_URL } from '../../api-config';
 
 import { categoryOptions, motorOptions, brandOptions, yearOptions, licenceOptions } from '../elements/optionsFilter.jsx'
 
-const Catalog = ({ products }) => {
+const Catalog = (props) => {
+
+    const products = props.products.filter(product => product.status_for_renting === 'enabled')
+    const user = props.user
     const [productFilter, setProductFilter] = useState(products);
     const [productInfo, setProductInfo] = useState({});
     const [renderProductDetail, setRenderProductDetail] = useState(false)
-
-    useEffect(() => {
-        getAllProducts()
-    }, [])
-
     const productDetails = (product) => {
         setProductInfo(product)
         setRenderProductDetail(true)
@@ -27,10 +23,11 @@ const Catalog = ({ products }) => {
     }
 
     const locationFilter = (value) => {
+        console.log(value)
         const location = value.city.toLowerCase()
         const productLocation = productFilter.filter(product => product.city === location)
         if (productLocation.length < 1) {
-            notification.warning({ message: 'Error', description: 'no hay motocicletas disponibles para la localidad de '+location })
+            notification.warning({ message: 'Error', description: 'no hay motocicletas disponibles para la localidad de ' + location })
         } else {
             setProductFilter(productLocation)
         }
@@ -75,7 +72,7 @@ const Catalog = ({ products }) => {
         if (value[0] !== undefined) {
             const productBrand = productFilter.filter(product => product.brand === value[0])
             if (productBrand.length < 1) {
-                notification.warning({ message: 'Error', description: 'no hay motocicletas disponible con la Marca '+value[0] })
+                notification.warning({ message: 'Error', description: 'no hay motocicletas disponible con la Marca ' + value[0] })
             } else {
                 setProductFilter(productBrand)
             }
@@ -90,7 +87,7 @@ const Catalog = ({ products }) => {
         <Fragment>
             {renderProductDetail ? (
                 <div>
-                    <ProductDetails product={productInfo} closeDetails={closeProductDetails} />
+                    <ProductDetails product={productInfo} user={user} closeDetails={closeProductDetails} />
                 </div>) :
                 (
                     <div>
@@ -100,9 +97,9 @@ const Catalog = ({ products }) => {
                                     <Input placeholder="Introduzca la localidad... ej: Madrid" />
                                 </Form.Item>
                                 <Form.Item >
-                                    <Button type="primary" htmlType="submit">
+                                    <button className="btn btn-sm btn-outline-info" type="submit">
                                         Buscar
-                        </Button>
+                                    </button>
                                 </Form.Item>
                             </Form>
                         </div>
@@ -149,7 +146,7 @@ const Catalog = ({ products }) => {
                                                 </div>
                                                 <div className="row my-1 ">
                                                     <div className="col-12 d-flex justify-content-center">
-                                                        <button className="btn btn-link mx-auto" onClick={deleteFilters}>
+                                                        <button className="btn btn-sm btn-outline-info mx-auto" onClick={deleteFilters}>
                                                             Eliminar Filtros
                                                             </button>
                                                     </div>
@@ -163,7 +160,9 @@ const Catalog = ({ products }) => {
                                         {productFilter?.map(product =>
                                             <div className=" col-sm-9 col-md-4 ">
                                                 <div className="card mb-4 shadow-sm">
-                                                    <img src={imgDefault} alt="..." className="img-thumbnail p-1 rounded" />
+                                                    {product.image_path_1 ?
+                                                        (<img src={IMAGES_URL + 'products/' + product.image_path_1} className="img-thumbnail p-1 rounded" alt="..." />)
+                                                        : (<img src={imgDefault} alt="..." className="img-thumbnail p-1 rounded" />)}
                                                     <div className="card-body">
                                                         <div className="d-inline-block">
                                                             Licencia &nbsp;
@@ -180,13 +179,13 @@ const Catalog = ({ products }) => {
                                                             {product.category.name}
                                                         </p>
                                                         <p className="card-text text-center">
-                                                            <svg class="bi bi-geo-alt" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                                            <svg className="bi bi-geo-alt" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fillRule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                                                             </svg>
                                                             {product.city[0].toUpperCase() + product.city.substring(1)}
                                                         </p>
                                                         <div className="d-flex justify-content-between align-items-center">
-                                                            <button className="btn btn-sm btn-outline-secondary mr-2"
+                                                            <button className="btn btn-sm btn-outline-info mr-2"
                                                                 onClick={() => productDetails(product)}>
                                                                 Detalles
                                                             </button>
@@ -210,5 +209,5 @@ const Catalog = ({ products }) => {
         </Fragment>
     )
 }
-const mapStateToProps = ({ product }) => ({ products: product.products });
+const mapStateToProps = ({products, user}) => ({ products: products.products, user: user.user });
 export default connect(mapStateToProps)(Catalog);

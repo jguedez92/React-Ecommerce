@@ -58,58 +58,98 @@ export const categoryOptions = [
     }
 ];
 
+export const categoryIdOptions = [
+    {
+        value: 1,
+        label: 'Scooter',
+    },
+    {
+        value: 2,
+        label: 'Urban',
+    },
+    {
+        value: 3,
+        label: 'Cross & Motard',
+    },
+    {
+        value: 4,
+        label: 'Sport Touring',
+    },
+    {
+        value: 5,
+        label: 'Adventure',
+    },
+    {
+        value: 6,
+        label: 'Hyper Naked',
+    },
+    {
+        value: 7,
+        label: 'Sport Heritage',
+    },
+    {
+        value: 8,
+        label: 'Super Sport',
+    }
+    ,
+    {
+        value: 9,
+        label: 'Chopper',
+    }
+];
+
 export const motorOptions = [
     {
         value: '125',
-        label: '125',
+        label: '125 CC',
     },
     {
         value: '250',
-        label: '250',
+        label: '250 CC',
     },
     {
         value: '300',
-        label: '300',
+        label: '300 CC',
     },
     {
         value: '400',
-        label: '400',
+        label: '400 CC',
     },
     {
         value: '500',
-        label: '500',
+        label: '500 CC',
     },
     {
         value: '600',
-        label: '600',
+        label: '600 CC',
     },
     {
         value: '650',
-        label: '650',
+        label: '650 CC',
     },
     {
         value: '700',
-        label: '700',
+        label: '700 CC',
     },
     {
         value: '800',
-        label: '800',
+        label: '800 CC',
     },
     {
         value: '900',
-        label: '900',
+        label: '900 CC',
     },
     {
         value: '1000',
-        label: '1000',
+        label: '1000 CC',
     },
     {
         value: '1100',
-        label: '1100',
+        label: '1100 CC',
     },
     {
         value: '1200',
-        label: '1200',
+        label: '1200 CC',
     },
     {
         value: '1300',

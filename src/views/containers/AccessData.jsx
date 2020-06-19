@@ -1,10 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Form, Input, Button, notification } from 'antd';
 import { updatePassword } from '../../redux/actions/users'
 
-const AccessData = (props) => {
+const AccessData = ({user}) => {
     const [form] = Form.useForm();
-    const userEmail = props.user.email
+    const userEmail = user.email
     const onFinish = (values) => {
         const user = {
             email: userEmail,
@@ -73,5 +74,6 @@ const AccessData = (props) => {
         </div>
     )
 }
+const mapStateToProps = state => ({ user: state.user.user });
+export default connect(mapStateToProps)(AccessData);
 
-export default AccessData

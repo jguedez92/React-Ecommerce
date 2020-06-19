@@ -1,11 +1,32 @@
-.jumbotron {
+.jumbotron-confirmation {
     background-image: url('https://www.esquirelat.com/wp-content/uploads/2018/04/Las-motos-retro-una-vieja-moda-1280x720.jpeg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    .card {
-        background-color: #ffffff4b;
+}
+
+.jumbotron-profile {
+    background-image: url('https://dw4i9za0jmiyk.cloudfront.net/2019/08/20/bb_a97f1824fefa2337bef0a16012187e11_4c24b7517a1d.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.card {
+    background-color: #cfcfcf62;
+}
+
+.carousel-home {
+    .carousel-caption {
+        background-color: #cfcfcf62;
     }
+    .img-lg {
+        height: 480px;
+    }
+}
+
+.card-empty {
+    font-size: 1em;
 }
 
 .galery-product {

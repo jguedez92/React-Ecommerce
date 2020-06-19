@@ -13,25 +13,31 @@ import Questions from './containers/Questions.jsx'
 import Register from './containers/Register.jsx'
 import Login from './containers/Login.jsx'
 import Confirmation from './containers/Confirmation.jsx'
+import NewBike from './containers/NewBike.jsx'
+import PrivateZone from '../guards/PrivateZone.jsx'
+import './containers/views.scss'
 
 const Views = () => {
-    
-    return (
-      <Switch>
-        <Route path='/' component={Home} exact />
-        <Route path='/covertura_seguro' component={BikeInsurance} exact />
-        <Route path='/catalogo' component={Catalog} exact />
-        <Route path='/nosotros' component={Faq} exact />
-        <Route path='/como_funciona' component={HowToDo} exact />
-        <Route path='/mis_motos' component={MyBikes} exact />
-        <Route path='/mis_renting' component={MyRenting} exact />
+
+  return (
+    <Switch>
+      <Route path='/' component={Home} exact />
+      <Route path='/covertura_seguro' component={BikeInsurance} exact />
+      <Route path='/catalogo' component={Catalog} exact />
+      <Route path='/nosotros' component={Faq} exact />
+      <Route path='/como_funciona' component={HowToDo} exact />
+      <Route path='/preguntas_frecuentes' component={Questions} exact />
+      <Route path='/registro' component={Register} exact />
+      <Route path='/ingreso' component={Login} exact />
+      <Route path='/confirmation' component={Confirmation} exact />
+      <PrivateZone>
         <Route path='/perfil' component={Profile} exact />
-        <Route path='/preguntas_frecuentes' component={Questions} exact />
-        <Route path='/registro' component={Register} exact />
-        <Route path='/ingreso' component={Login} exact />
-        <Route path='/confirmation' component={Confirmation} exact />
-      </Switch>
-    )
+        <Route path='/mis_motos' component={MyBikes} exact />
+        <Route path='/agregar_moto' component={NewBike} exact />
+        <Route path='/mis_renting' component={MyRenting} exact />
+      </PrivateZone>
+    </Switch>
+  )
 }
 
 export default Views
