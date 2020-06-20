@@ -175,7 +175,7 @@ const MyBikes = ({ user }) => {
                                                                     <strong>Año: </strong>  {product.year}
                                                                 </div>
                                                                 <div>
-                                                                    <strong>Ubicacion: </strong>  {product.city}
+                                                                    <strong>Ubicacion: </strong>  {product.city[0].toUpperCase() + product.city.substring(1)}
                                                                 </div>
                                                                 <div >
                                                                     <strong>Licencia: </strong>  {product.required_license}
