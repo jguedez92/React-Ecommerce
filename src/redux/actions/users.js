@@ -22,15 +22,11 @@ export const updatePassword = async(user) => {
         }
     });
 }
-export const updateProfile = async(user) => {
-    const res = await axios.put(API_URL + 'users', user, {
+export const updateUser = async(data, id) => {
+    const res = await axios.put(API_URL + 'users/' + id, data, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('authToken')
         }
-    });
-    store.dispatch({
-        type: 'PUT_USER',
-        payload: res.data
     });
 }
 export const refreshUser = async() => {
@@ -44,7 +40,13 @@ export const refreshUser = async() => {
         payload: res.data
     });
 }
-
+export const getAllUsers = async() => {
+    const res = await axios.get(API_URL + 'users/getAll')
+    store.dispatch({
+        type: 'GET_ALL_USERS',
+        payload: res.data
+    });
+}
 export const logout = async() => {
     const res = await axios.get(API_URL + 'users/logout', {
         headers: {

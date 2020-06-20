@@ -1,6 +1,6 @@
 const orderReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'GET_ALL':
+        case 'GET_ALL_ORDERS':
             return {
                 ...state,
                 orders: action.payload

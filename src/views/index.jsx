@@ -14,7 +14,12 @@ import Register from './containers/Register.jsx'
 import Login from './containers/Login.jsx'
 import Confirmation from './containers/Confirmation.jsx'
 import NewBike from './containers/NewBike.jsx'
+import AdminUsers from './containers/AdminUsers.jsx'
+import AdminBikes from './containers/AdminBikes.jsx'
+import AdminOrders from './containers/AdminOrders.jsx'
 import PrivateZone from '../guards/PrivateZone.jsx'
+import AdminZone from '../guards/AdminZone.jsx'
+
 import './containers/views.scss'
 
 const Views = () => {
@@ -35,6 +40,11 @@ const Views = () => {
         <Route path='/mis_motos' component={MyBikes} exact />
         <Route path='/agregar_moto' component={NewBike} exact />
         <Route path='/mis_renting' component={MyRenting} exact />
+        <AdminZone>
+          <Route path='/usuarios' component={AdminUsers} exact />
+          <Route path='/motos' component={AdminBikes} exact />
+          <Route path='/rentings' component={AdminOrders} exact />
+        </AdminZone>
       </PrivateZone>
     </Switch>
   )
