@@ -1,6 +1,6 @@
 
 export const brandOptions = []
-const brands = ['Aprillia', 'Bajaj', 'Benelli', 'BMW', 'Buell', 'Ducati', 'Gilera', 'Guzzi', 'Harley Davidson', 'Honda', 'Hyosung', 'Kawasaki', 'Keeway', 'KTM', 'Kymco', 'Piaggio', 'Suzuki', 'Triumph', 'Vespa', 'Yamaha']
+const brands = ['Aprillia', 'Bajaj', 'Benelli', 'BMW', 'Buell', 'Ducati', 'Gilera', 'Moto Guzzi', 'Harley Davidson', 'Honda', 'Hyosung', 'Kawasaki', 'Keeway', 'KTM', 'Kymco', 'Piaggio', 'Suzuki', 'Triumph', 'Vespa', 'Yamaha']
 for (let i = 0; i < brands.length; i++) {
     brandOptions[i] = {
         value: brands[i],
@@ -51,11 +51,6 @@ export const categoryOptions = [
         value: 'Super Sport',
         label: 'Super Sport',
     }
-    ,
-    {
-        value: 'Chopper',
-        label: 'Chopper',
-    }
 ];
 
 export const categoryIdOptions = [
@@ -90,11 +85,6 @@ export const categoryIdOptions = [
     {
         value: 8,
         label: 'Super Sport',
-    }
-    ,
-    {
-        value: 9,
-        label: 'Chopper',
     }
 ];
 

@@ -15,9 +15,9 @@ const AdminOrders = ({orders}) => {
         setAdmOrder(false)
     }
     return (
-        <div className="container">
-            <div className="row d-felx justify-content-center">
-                <div className="col-sm-8 col-md-10 p-1 mb-5">
+        <div className="container my-5">
+            <div className="row d-felx justify-content-center mb-5 pb-5">
+                <div className="col-sm-8 col-md-10 p-1 pb-5 mb-5">
                     {admOrder ? (
                         <AdminOrder order={ordertData} returnList={returnList} />
                     ) : (

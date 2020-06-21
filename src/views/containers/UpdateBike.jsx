@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Form, Input, Select, notification } from 'antd';
+import {  Form, Input, Select, notification, Button } from 'antd';
 import { categoryIdOptions, motorOptions, yearOptions, licenceOptions } from '../elements/optionsFilter.jsx'
 import { updateProduct } from '../../redux/actions/products'
 import { refreshUser } from '../../redux/actions/users'
@@ -80,12 +80,9 @@ const UpdateBike = (props) => {
                 </Form.Item>
                 <div className="container d-flex justify-content-center">
                     <Form.Item >
-                        <button className="btn btn-outline-info" type="submit">
+                        <Button htmlType="submit">
                             Enviar
-                        </button>
-                        <button type="button" className="btn ml-2 btn-outline-secondary" data-dismiss="modal">
-                            Close
-                        </button>
+                        </Button>
                     </Form.Item>
                 </div>
             </Form>
