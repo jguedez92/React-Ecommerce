@@ -34,7 +34,7 @@ const Register = props => {
             <div className="row d-flex justify-content-center align-items-center">
                 <div className="card shadow mt-5 animated bounceInRight">
                     <div className="card-title text-center mt-4 mb-0">
-                        <h2 className="lead-title"> Registro </h2>
+                        <h1> Registro </h1>
                     </div>
                     <div className="card-body">
                         <div className="row">

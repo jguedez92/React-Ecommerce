@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { getAllUsers } from '../../redux/actions/users.js'
 import AdminUser from './AdminUser.jsx'
-import { Skeleton, Select, Input, notification, Button } from 'antd';
+import {  Select, Input, notification, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 const AdminUsers = ({ users }) => {
 
     useEffect(() => {
-        getAllUsers()
-    }, [])
+        setUsersList(users)
+    }, [users])
+
     const { Option } = Select;
     const [admUser, setAdmUser] = useState(false)
     const [loadingStatus, setLoadingStatus] = useState(false)
     const [userData, setUserData] = useState({})
-    const [usersList, setUsersList] = useState(users)
+    const [usersList, setUsersList] = useState()
     const { Search } = Input;
 
-    const allUsers = usersList
 
     const userView = (user) => {
         setUserData(user)
@@ -53,84 +52,73 @@ const AdminUsers = ({ users }) => {
             notification.warning({ message: ' No hay resultados ', description: `No se encontraron usuarios con el estatus ${filter} ` })
         }
     }
-    const deleteFilters = () =>{
+    const deleteFilters = () => {
         setUsersList(users)
     }
 
     return (
         <div className="container">
-            {!allUsers ? (
-                <div className="row py-5">
-                    <div className="container my-4">
-                        <Skeleton active />
-                        <Skeleton active />
+            <div className="row">
+                <div className="col-12 border rounded shadow bg-light my-2 p-3">
+                    <div className="my-1">
+                        <h3 className="lead-title">Filtros de Busqueda</h3>
+                    </div>
+                    <div className="row d-flex justify-content-around p-1">
+                        <div className="col-sm-12 col-md-4 border py-2 text-center">
+                            <strong className="mr-3">Estatus: </strong>
+                            <Select labelInValue style={{ width: 160 }} defaultValue={{ key: 'Todos' }} onChange={setStatusFilter} loading={loadingStatus} style={{ width: 200 }}>
+                                <Option value={null}>Todos</Option>
+                                <Option value="enabled">Habilitado</Option>
+                                <Option value="pending">Revision</Option>
+                                <Option value="disabled">Deshabilitado</Option>
+                            </Select>
+                        </div>
+                        <div className="col-sm-12 col-md-4 border py-2 text-center">
+                            <strong className="mr-3">Email: </strong>
+                            <Search prefix={<UserOutlined />} placeholder="input search text"
+                                onSearch={value => setEmailFilter(value)}
+                                style={{ width: 200 }}
+                            />
+                        </div>
+                        <div className="col-sm-12 col-md-4 border py-2 text-center">
+                            <Button onClick={deleteFilters}>
+                                Reestablecer Filtros
+                                    </Button>
+                        </div>
                     </div>
                 </div>
-
-            ) : (
-                    <div className="row">
-                        <div className="col-12 border rounded shadow bg-light my-2 p-3">
-                            <div className="my-1">
-                                <h3 className="lead-title">Filtros de Busqueda</h3>
-                            </div>
-                            <div className="row d-flex justify-content-around p-1">
-                                <div className="col-sm-12 col-md-4 border py-2 text-center">
-                                    <strong className="mr-3">Estatus: </strong>
-                                    <Select labelInValue style={{ width: 160 }} defaultValue={{ key: 'Todos' }} onChange={setStatusFilter} loading={loadingStatus} style={{ width: 200 }}>
-                                        <Option value={null}>Todos</Option>
-                                        <Option value="enabled">Habilitado</Option>
-                                        <Option value="pending">Revision</Option>
-                                        <Option value="disabled">Deshabilitado</Option>
-                                    </Select>
-                                </div>
-                                <div className="col-sm-12 col-md-4 border py-2 text-center">
-                                    <strong className="mr-3">Email: </strong>
-                                    <Search  prefix={<UserOutlined />} placeholder="input search text"
-                                        onSearch={value => setEmailFilter(value)}
-                                        style={{ width: 200 }}
-                                    />
-                                </div>
-                                <div className="col-sm-12 col-md-4 border py-2 text-center">
-                                    <Button onClick={deleteFilters}>
-                                        Reestablecer Filtros
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-10 col-md-12 p-1 mb-5">
-                            {admUser ? (
-                                <AdminUser user={userData} returnList={returnList} />
-                            ) : (
-                                    <table className="table animated bounceInRight my-4">
-                                        <thead className="thead-dark">
-                                            <tr>
-                                                <th scope="col">Id</th>
-                                                <th scope="col">Nombres</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Rol</th>
-                                                <th scope="col">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {allUsers?.map(user => (
-                                                <tr>
-                                                    <th scope="row">{user.id}</th>
-                                                    <td><button className="btn btn-link" onClick={() => userView(user)}>
-                                                        {user.fullName}
-                                                    </button>
-                                                    </td>
-                                                    <td>{user.email}</td>
-                                                    <td>{user.role}</td>
-                                                    <td>{user.status_for_renting}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                )}
-                        </div>
-                    </div>
-                )}
-
+                <div className="col-sm-10 col-md-12 p-1 mb-5">
+                    {admUser ? (
+                        <AdminUser user={userData} returnList={returnList} />
+                    ) : (
+                            <table className="table animated bounceInRight my-4">
+                                <thead className="thead-dark">
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nombres</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Rol</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {usersList?.map(user => (
+                                        <tr>
+                                            <th scope="row">{user.id}</th>
+                                            <td><button className="btn btn-link" onClick={() => userView(user)}>
+                                                {user.fullName}
+                                            </button>
+                                            </td>
+                                            <td>{user.email}</td>
+                                            <td>{user.role}</td>
+                                            <td>{user.status_for_renting}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                </div>
+            </div>
         </div>
     )
 }

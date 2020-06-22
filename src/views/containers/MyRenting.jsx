@@ -73,7 +73,7 @@ const MyRenting = ({ user, orders }) => {
                 </div>
             ) : (
                     <div className="container border-top">
-                        <h2 className="mt-4 lead-title">Rentas Recibidas</h2>
+                        <h2 className="mt-4 lead-title">Rentas Realizadas</h2>
                         <div className="row d-flex justify-content-center align-items-center">
                             <div className="card my-3 card-empty shadow animated bounceInLeft">
                                 <div className="card-body p-4">

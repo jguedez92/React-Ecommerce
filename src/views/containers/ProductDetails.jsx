@@ -4,7 +4,8 @@ import { UserOutlined } from '@ant-design/icons'
 
 import { IMAGES_URL } from '../../api-config';
 import { insertOrder } from '../../redux/actions/orders.js'
-import { getAllProducts } from '../../redux/actions/products'
+import { refreshUser } from '../../redux/actions/users.js'
+import { getAllProducts } from '../../redux/actions/products.js'
 import imgDefault from '../../public/images/imgDefault.png'
 import './views.scss'
 import { useHistory } from 'react-router-dom';
@@ -68,6 +69,7 @@ const ProductDetails = (props) => {
                 setLoading(false)
                 notification.success({ message: 'Rentado', description: 'Se ha realizado la renta satisfactoriamente' })
                 getAllProducts();
+                refreshUser();
                 setTimeout(() => {
                     history.push('/mis_renting')
                 }, 1500);
