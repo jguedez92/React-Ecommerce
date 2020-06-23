@@ -3,7 +3,7 @@ import { IMAGES_URL } from '../../api-config'
 import { Button, notification, Select } from 'antd'
 import { updateProduct, getAllProducts } from '../../redux/actions/products.js'
 const AdminBike = (props) => {
-    const product = props.product
+    const product = props.user
     const returnList = props.returnList
     const [statusValue, setStatusValue] = useState()
     const [loadingStatus, setLoadingStatus] = useState(false)

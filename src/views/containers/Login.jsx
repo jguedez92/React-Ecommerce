@@ -31,7 +31,7 @@ const Login = (props) => {
             <div className="row d-flex justify-content-center">
                 <div className="card shadow my-5 animated bounceInLeft">
                     <div className="card-title text-center mt-3 mb-0">
-                        <h1> Login </h1>
+                        <h2 className="lead-title"> Login </h2>
                     </div>
                     <div className="card-body">
                         <Form

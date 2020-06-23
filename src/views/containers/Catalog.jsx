@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Form, Input, Cascader, notification } from 'antd';
+import { Form, Input, Cascader, notification, Button } from 'antd';
 import imgDefault from '../../public/images/imgDefault.png'
 import ProductDetails from './ProductDetails'
 import { IMAGES_URL } from '../../api-config';
@@ -51,6 +51,19 @@ const Catalog = (props) => {
                 notification.warning({ message: 'Error', description: 'no hay motocicletas disponible para esta cilindrada' })
             } else {
                 setProductFilter(productMotor)
+            }
+        } else {
+            setProductFilter(products)
+        }
+    }
+    
+    const yearFilter = (value) => {
+        if (value[0] !== undefined) {
+            const productLicence = productFilter.filter(product => product.year === value[0])
+            if (productLicence.length < 1) {
+                notification.warning({ message: 'Error', description: 'no hay motocicletas disponible para el año ingresado' })
+            } else {
+                setProductFilter(productLicence)
             }
         } else {
             setProductFilter(products)
@@ -121,7 +134,7 @@ const Catalog = (props) => {
                                                 <div className="row my-3 ">
                                                     <div className="col-12 d-flex justify-content-between flex-md-column">
                                                         <strong className="my-auto" >Año:</strong>
-                                                        <Cascader placeholder="Seleccionar..." className="mt-2" options={yearOptions} onChange={motorFilter} />
+                                                        <Cascader placeholder="Seleccionar..." className="mt-2" options={yearOptions} onChange={yearFilter} />
                                                     </div>
                                                 </div>
                                                 <div className="row my-3 ">
@@ -159,14 +172,14 @@ const Catalog = (props) => {
                                     <div className="row">
                                         {productFilter?.map(product =>
                                             <div className=" col-sm-9 col-md-4 ">
-                                                <div className="card mb-4 shadow-sm">
+                                                <div className="card card-catalog mb-4 shadow-sm">
                                                     {product.image_path_1 ?
                                                         (<img src={IMAGES_URL + 'products/' + product.image_path_1} className="img-thumbnail p-1 rounded" alt="..." />)
                                                         : (<img src={imgDefault} alt="..." className="img-thumbnail p-1 rounded" />)}
                                                     <div className="card-body">
                                                         <div className="d-inline-block">
                                                             Licencia &nbsp;
-                                                <strong className="mb-2 text-success">
+                                                            <strong className="mb-2 text-success">
                                                                 {product.required_license}
                                                             </strong>
                                                         </div>
@@ -184,17 +197,20 @@ const Catalog = (props) => {
                                                             </svg>
                                                             {product.city[0].toUpperCase() + product.city.substring(1)}
                                                         </p>
+                                                    </div>
+                                                    <div className="card-footer">
                                                         <div className="d-flex justify-content-between align-items-center">
-                                                            <button className="btn btn-sm btn-outline-info mr-2"
-                                                                onClick={() => productDetails(product)}>
+                                                            <Button size='small' onClick={() => productDetails(product)}>
                                                                 Detalles
-                                                            </button>
+                                                            </Button>
                                                             <small className="text-muted text-center">
-                                                                <span className="font-weight-bolder d-inline-block">
+                                                                <div className="font-weight-bolder d-inline-block">
                                                                     Precio por dia &nbsp;
-                                                                </span>
-                                                                {product.price} €
-                                                        </small>
+                                                                </div>
+                                                                <div>
+                                                                    {product.price} €
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -209,5 +225,5 @@ const Catalog = (props) => {
         </Fragment>
     )
 }
-const mapStateToProps = ({products, user}) => ({ products: products.products, user: user.user });
+const mapStateToProps = ({ products, user }) => ({ products: products.products, user: user.user });
 export default connect(mapStateToProps)(Catalog);

@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Upload, message, Button, notification, Popconfirm } from 'antd';
+import { Upload, message, Button, notification, Popconfirm, Modal } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 import { IMAGES_URL } from '../../api-config';
@@ -11,6 +11,18 @@ import { refreshUser } from '../../redux/actions/users'
 import UpdateBike from './UpdateBike'
 
 const MyBikes = ({ user }) => {
+
+    const [modal1, setModal1] = useState(false)
+    const [modal2, setModal2] = useState(false)
+
+    const viewModal = (modal) => {
+        if (modal == '1') {
+            setModal1(!modal1)
+        } else {
+            setModal2(!modal2)
+        }
+    };
+
     const props = {
         name: 'file',
         headers: {
@@ -148,8 +160,6 @@ const MyBikes = ({ user }) => {
                                                                 <span className="sr-only">Next</span>
                                                             </a>
                                                         </div>
-
-
                                                     </div>
                                                     <div className="col-sm-12 ">
                                                         <ul className="list-group">
@@ -198,13 +208,13 @@ const MyBikes = ({ user }) => {
                                         </div>
                                         <div className="card-footer p-3">
                                             <div className="row d-flex justify-content-around">
-                                                <button className="btn btn-outline-info" data-toggle="modal" data-target={'#modalImg' + product.id}>
+                                                <Button onClick={() => viewModal('1')}>
                                                     Cambiar Imagen
-                                                </button>
+                                                </Button>
                                                 {product.status_for_renting !== 'renting' && (
-                                                    <button className="btn btn-outline-info" data-toggle="modal" data-target={'#modalEdit' + product.id}>
-                                                        Editar
-                                                    </button>
+                                                    <Button onClick={() => viewModal('2')}>
+                                                        Editar Informacion
+                                                    </Button>
                                                 )}
                                                 {product.status_for_renting !== 'renting' && (
                                                     <Popconfirm
@@ -214,26 +224,20 @@ const MyBikes = ({ user }) => {
                                                         okText="si"
                                                         cancelText="No"
                                                     >
-                                                        <button className="btn btn-outline-danger">
-                                                            Eliminar
-                                                    </button>
+                                                        <Button type="primary" danger>
+                                                            Eliminar 
+                                                        </Button>
                                                     </Popconfirm>
 
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="modal fade" id={'modalImg' + product.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <Modal title="Cargar Imagenes" visible={modal1} onOk={() => viewModal('1')} >
                                             <div className="modal-dialog">
                                                 <div className="modal-content">
-                                                    <div className="modal-header">
-                                                        <h5 className="modal-title" id="exampleModalLabel">Cargar Imagenes</h5>
-                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
                                                     <div className="modal-body">
                                                         <div className="row">
-                                                            <div className="col-sm-12 ml-2">
+                                                            <div className="col-sm-12 ">
                                                                 <div className="media p-3 mb-4 border">
                                                                     {product.image_path_1 ?
                                                                         (<img src={IMAGES_URL + 'products/' + product.image_path_1} className="img-fluid" width="90" alt="" />) :
@@ -243,7 +247,7 @@ const MyBikes = ({ user }) => {
                                                                         <Upload className="mt-2" action={'http://127.0.0.1:8000/api/products/img_1/' + product.id} {...props}>
                                                                             <Button className="mx-auto">
                                                                                 <UploadOutlined /> Click to Upload
-                                                                        </Button>
+                                                                            </Button>
                                                                         </Upload>
                                                                     </div>
                                                                 </div>
@@ -302,33 +306,26 @@ const MyBikes = ({ user }) => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="modal-footer">
-                                                        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Close</button>
-
-                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div className="modal fade" id={'modalEdit' + product.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div className="modal-dialog">
-                                                <div className="modal-content">
-                                                    <div className="modal-header">
-                                                        <h5 className="modal-title" id="exampleModalLabel">Editar Moto</h5>
-                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div className="modal-body">
-                                                        <div className="row">
-                                                            <div className="container col-sm-12">
-                                                                <UpdateBike product={product} />
-                                                            </div>
+                                        </Modal>
+                                        <Modal title="modal 2" visible={modal2} onOk={() => viewModal('2')} >
+                                            <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <h5 className="modal-title" id="exampleModalLabel">Editar Moto</h5>
+                                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div className="modal-body">
+                                                    <div className="row">
+                                                        <div className="container col-sm-12">
+                                                            <UpdateBike product={product} />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </Modal>
                                     </div>
                                 </div>
                             ))

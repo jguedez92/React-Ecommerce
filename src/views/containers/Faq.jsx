@@ -13,7 +13,7 @@ const Faq = () => {
             <hr className="featurette-divider"></hr>
                 <div className="row featurette">
                     <div className="col-md-7 p-5">
-                        <h2 className="featurette-heading">¿Qué es GoRide?</h2>
+                        <h2 className="featurette-heading lead-title">¿Qué es GoRide?</h2>
                         <p className="text-justify">
                             GoRide es una plataforma de consumo colaborativo que permite el alquiler de motos entre particulares. A través de GoRide, puedes alquilar y disfrutar de motos de usuarios de la plataforma que estén cerca de ti de manera fácil y segura.
                         </p>
@@ -34,7 +34,7 @@ const Faq = () => {
                 <hr className="featurette-divider"></hr>
                 <div className="row featurette">
                     <div className="col-md-7 order-md-2 p-5">
-                        <h2 className="featurette-heading">No estamos locos!. <span className="text-muted">hay más gente como nosotros....</span></h2>
+                        <h2 className="featurette-heading lead-title">No estamos locos!. <span className="text-muted">hay más gente como nosotros....</span></h2>
                         <p className="text-justify">
                             En GoRide trabajamos un equipo joven que creemos que existe una alternativa a cómo disfrutamos del mundo de la moto; haciendo un uso más eficiente de los vehículos y con un consumo más inteligente.
 

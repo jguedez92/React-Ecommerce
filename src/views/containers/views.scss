@@ -1,3 +1,58 @@
+.navbar {
+    .nav-item {
+        .nav-link {
+            &:hover {
+                font-family: Impact, 'Arial Narrow Bold', sans-serif;
+                font-size: 1.2em;
+                color: #eea00e;
+                cursor: pointer;
+            }
+        }
+        .dropdown-menu {
+            .dropdown-item {
+                color: #1215da;
+                &:hover {
+                    font-family: Impact, 'Arial Narrow Bold', sans-serif;
+                    font-size: 1em;
+                    color: #eea00e;
+                    cursor: pointer;
+                }
+            }
+            .active {
+                background-color: #153ab462;
+            }
+        }
+    }
+}
+
+.modal-content {
+    z-index: 200;
+}
+
+.card-catalog {
+    height: 70vh;
+    img {
+        height: 30vh;
+    }
+}
+
+.modal-backdrop {
+    z-index: 150
+}
+
+.lead-title {
+    color: #eea00e;
+}
+
+.btn-link {
+    color: #eea00e;
+    &:hover {
+        text-decoration: underline;
+        color: #1215da;
+        cursor: pointer;
+    }
+}
+
 .jumbotron {
     background-position: center;
     background-size: cover;
