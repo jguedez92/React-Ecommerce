@@ -10,7 +10,7 @@ const DocumentsData = ({ user }) => {
 
     const propsProfile = {
         name: 'profileImage',
-        action: 'http://127.0.0.1:8000/api/users/uploadImgProfile',
+        action: 'http://127.0.0.1:8000/api/users/upload_img_profile',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('authToken')
         },
@@ -28,7 +28,7 @@ const DocumentsData = ({ user }) => {
     };
     const propsDni = {
         name: 'dniImage',
-        action: 'http://127.0.0.1:8000/api/users/uploadImgDni',
+        action: 'http://127.0.0.1:8000/api/users/upload_img_dni',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('authToken')
         },
@@ -47,7 +47,7 @@ const DocumentsData = ({ user }) => {
     };
     const propsLicense = {
         name: 'licenseImage',
-        action: 'http://127.0.0.1:8000/api/users/uploadImgLicense',
+        action: 'http://127.0.0.1:8000/api/users/upload_img_license',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('authToken')
         },

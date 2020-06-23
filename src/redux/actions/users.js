@@ -16,7 +16,7 @@ export const login = async(credentials) => {
     });
 }
 export const updatePassword = async(user) => {
-    await axios.post(API_URL + 'users/uploadPassword', user, {
+    await axios.post(API_URL + 'users/update_password', user, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('authToken')
         }
@@ -30,7 +30,7 @@ export const updateUser = async(data, id) => {
     });
 }
 export const refreshUser = async() => {
-    const res = await axios.get(API_URL + 'users/getByAuth', {
+    const res = await axios.get(API_URL + 'users/get_by_auth', {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('authToken')
         }
