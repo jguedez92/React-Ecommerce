@@ -18,8 +18,10 @@ import AdminUsers from './containers/AdminUsers.jsx'
 import AdminBikes from './containers/AdminBikes.jsx'
 import AdminOrders from './containers/AdminOrders.jsx'
 import PrivateZone from '../guards/PrivateZone.jsx'
+import ProductDetails from './containers/ProductDetails'
 
 import './containers/views.scss'
+
 
 const Views = () => {
 
@@ -34,6 +36,7 @@ const Views = () => {
       <Route path='/registro' component={Register} exact />
       <Route path='/ingreso' component={Login} exact />
       <Route path='/confirmation' component={Confirmation} exact />
+      <Route path='/catalogo/moto/:id' component={ProductDetails} exact />
       <PrivateZone>
         <Route path='/perfil' component={Profile} exact />
         <Route path='/mis_motos' component={MyBikes} exact />

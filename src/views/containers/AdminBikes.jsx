@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import AdminBike from './AdminBike.jsx'
 import {  Select, Input, notification, Button } from 'antd';
@@ -94,7 +94,8 @@ const AdminBikes = ({ products }) => {
                                 <thead className="thead-dark">
                                     <tr>
                                         <th scope="col">Id</th>
-                                        <th scope="col">Nombres</th>
+                                        <th scope="col">Vehiculo</th>
+                                        <th scope="col">Propietario</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Rol</th>
                                         <th scope="col">Status</th>
@@ -108,6 +109,7 @@ const AdminBikes = ({ products }) => {
                                                 {product.brand} -{product.model}
                                             </button>
                                             </td>
+                                            <td>{product.user.fullName}</td>
                                             <td>{product.category.name}</td>
                                             <td>{product.city}</td>
                                             <td>{product.status_for_renting}</td>
