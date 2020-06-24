@@ -10,6 +10,20 @@ export const getAllProducts = async() => {
     });
     return res;
 }
+export const getProductById = async(id) => {
+    const res = await axios.get(API_URL + 'products/' + id)
+    store.dispatch({
+        type: 'GET_PRODUCT',
+        payload: res.data
+    });
+    return res;
+}
+export const kickProduct = async(id) => {
+    store.dispatch({
+        type: 'KICK_PRODUCT',
+        payload: undefined
+    });
+}
 export const insertProduct = async(product) => {
     await axios.post(API_URL + 'products/insert', product, {
         headers: {

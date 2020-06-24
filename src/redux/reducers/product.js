@@ -5,6 +5,13 @@ const productReducer = (state = {}, action) => {
                 ...state,
                 products: action.payload
             }
+        case 'GET_PRODUCT':
+        case 'KICK_PRODUCT':
+            return {
+                ...state,
+                product: action.payload
+            }
+
 
         default:
             return state;

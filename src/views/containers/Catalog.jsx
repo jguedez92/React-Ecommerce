@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom';
 import { Form, Input, Cascader, notification, Button } from 'antd';
 import imgDefault from '../../public/images/imgDefault.png'
 import ProductDetails from './ProductDetails'
@@ -9,15 +10,17 @@ import { categoryOptions, motorOptions, brandOptions, yearOptions, licenceOption
 
 const Catalog = (props) => {
 
+    const history = useHistory()
     const products = props.products.filter(product => product.status_for_renting === 'enabled')
     const user = props.user
     const [productFilter, setProductFilter] = useState(products);
     const [productInfo, setProductInfo] = useState({});
     const [renderProductDetail, setRenderProductDetail] = useState(false)
-    const productDetails = (product) => {
-        setProductInfo(product)
-        setRenderProductDetail(true)
+    
+    const productDetails = (id) => {
+        history.push(`/catalogo/moto/${id}`)
     }
+
     const closeProductDetails = () => {
         setRenderProductDetail(false)
     }
@@ -200,7 +203,7 @@ const Catalog = (props) => {
                                                     </div>
                                                     <div className="card-footer">
                                                         <div className="d-flex justify-content-between align-items-center">
-                                                            <Button size='small' onClick={() => productDetails(product)}>
+                                                            <Button size='small' onClick={() => productDetails(product.id)}>
                                                                 Detalles
                                                             </Button>
                                                             <small className="text-muted text-center">

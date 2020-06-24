@@ -13,9 +13,9 @@ const NavBar = ({ user }) => {
   useEffect(() => {
     if(user?.role === 'admin'){
       getAllUsers();
+      getAllOrders()
     }
     getAllProducts()
-    getAllOrders()
   }, [user])
 
 
