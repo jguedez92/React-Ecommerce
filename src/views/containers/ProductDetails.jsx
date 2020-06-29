@@ -15,8 +15,9 @@ const ProductDetails = (props) => {
 
     useEffect(() => {
         getProductById(props.match.params.id)
-                .then(res => {
-                    setProductDetails(res.data)
+            .then(res => {
+                setProductDetails(res.data)
+                setLoadingSkeleton(false)
             })
     }, [props.match.params.id])
 
@@ -24,6 +25,7 @@ const ProductDetails = (props) => {
     const history = useHistory()
     const [productDetails, setProductDetails] = useState()
     const [rentDays, setRendDays] = useState(1)
+    const [loadingSkeleton, setLoadingSkeleton] = useState(true)
     const [loading, setLoading] = useState(false)
     const [costRent, setCostRent] = useState()
     const [costInsurance, setCostInsurance] = useState()
@@ -93,31 +95,31 @@ const ProductDetails = (props) => {
 
     return (
         <div className="container">
-            {productDetails !== undefined ? (
-                <div className="row">
+            <Skeleton className="my-4" loading={loadingSkeleton} title={true} paragraph={{ rows: 12 }} active >
+                <div className="row animated bounceInUp">
                     <div className="col-sm-12 col-md-9 order-md-1 ">
                         <div className="container border-right text-right mt-2 p-3">
                             <div className="card galery-product m-3 p-2">
                                 <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                                     <div className="carousel-inner">
                                         <div className="carousel-item active">
-                                            {productDetails.image_path_1 ?
-                                                (<img src={IMAGES_URL + 'products/' + productDetails.image_path_1} className="d-block img-thumbnail w-100" alt="..." />)
+                                            {productDetails?.image_path_1 ?
+                                                (<img src={IMAGES_URL + 'products/' + productDetails?.image_path_1} className="d-block img-thumbnail w-100" alt="..." />)
                                                 : (<img src={imgDefault} className="d-block img-thumbnail w-100" alt="..." />)}
                                         </div>
                                         <div className="carousel-item">
-                                            {productDetails.image_path_2 ?
-                                                (<img src={IMAGES_URL + 'products/' + productDetails.image_path_2} className="d-block img-thumbnail w-100" alt="..." />)
+                                            {productDetails?.image_path_2 ?
+                                                (<img src={IMAGES_URL + 'products/' + productDetails?.image_path_2} className="d-block img-thumbnail w-100" alt="..." />)
                                                 : (<img src={imgDefault} className="d-block img-thumbnail w-100" width="400" alt="..." />)}
                                         </div>
                                         <div className="carousel-item">
-                                            {productDetails.image_path_3 ?
-                                                (<img src={IMAGES_URL + 'products/' + productDetails.image_path_3} className="d-block img-thumbnail w-100" alt="..." />)
+                                            {productDetails?.image_path_3 ?
+                                                (<img src={IMAGES_URL + 'products/' + productDetails?.image_path_3} className="d-block img-thumbnail w-100" alt="..." />)
                                                 : (<img src={imgDefault} className="d-block img-thumbnail w-100" alt="..." />)}
                                         </div>
                                         <div className="carousel-item">
-                                            {productDetails.image_path_4 ?
-                                                (<img src={IMAGES_URL + 'products/' + productDetails.image_path_4} className="d-block img-thumbnail w-100" alt="..." />)
+                                            {productDetails?.image_path_4 ?
+                                                (<img src={IMAGES_URL + 'products/' + productDetails?.image_path_4} className="d-block img-thumbnail w-100" alt="..." />)
                                                 : (<img src={imgDefault} className="d-block img-thumbnail w-100" alt="..." />)}
                                         </div>
                                     </div>
@@ -142,7 +144,7 @@ const ProductDetails = (props) => {
                                     <div className="row">
                                         <div className="col-6 text-center">
                                             <Avatar className="mx-auto" size={70} icon={<UserOutlined />} />
-                                            <h6> {productDetails.user.fullName} </h6>
+                                            <h6> {productDetails?.user.fullName} </h6>
                                         </div>
                                         <div className=" col-6 text-center">
                                             <Rate className="my-2" disabled defaultValue={4} />
@@ -159,25 +161,25 @@ const ProductDetails = (props) => {
                                             <div className="card-body">
                                                 <div className="row">
                                                     <div className="col-6 d-flex my-2">
-                                                        <strong>Marca: </strong> {productDetails.brand}
+                                                        <strong>Marca: </strong> {productDetails?.brand}
                                                     </div>
                                                     <div className="col-6 d-flex my-2">
-                                                        <strong>Modelo: </strong> {productDetails.model}
+                                                        <strong>Modelo: </strong> {productDetails?.model}
                                                     </div>
                                                     <div className="col-4 d-flex my-2">
-                                                        <strong>Categoria: </strong> {productDetails.category.name}
+                                                        <strong>Categoria: </strong> {productDetails?.category.name}
                                                     </div>
                                                     <div className="col-4 d-flex my-2">
-                                                        <strong>Año: </strong> {productDetails.year}
+                                                        <strong>Año: </strong> {productDetails?.year}
                                                     </div>
                                                     <div className="col-4 d-flex my-2">
-                                                        <strong>Motor: </strong> {productDetails.motor} CC.
+                                                        <strong>Motor: </strong> {productDetails?.motor} CC.
                                                 </div>
                                                     <div className="col-6 d-flex my-2 justify-content-center ">
-                                                        <strong>Licencia: </strong> {productDetails.required_license}
+                                                        <strong>Licencia: </strong> {productDetails?.required_license}
                                                     </div>
                                                     <div className="col-6 d-flex my-2 justify-content-center ">
-                                                        <strong>Ciudad: </strong> {productDetails.city}
+                                                        <strong>Ciudad: </strong> {productDetails?.city}
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,7 +192,7 @@ const ProductDetails = (props) => {
                                 <div className="container col-12 text-justify p-2">
                                     <div className="row">
                                         <p>
-                                            {productDetails.description}
+                                            {productDetails?.description}
                                         </p>
                                     </div>
                                 </div>
@@ -232,19 +234,19 @@ const ProductDetails = (props) => {
                                             <strong>Alquiler:</strong>
                                         </div>
                                         <div className="col-6 text-right">
-                                            <small>{productDetails.price * rentDays} €</small>
+                                            <small>{productDetails?.price * rentDays} €</small>
                                         </div>
                                         <div className="col-6">
                                             <strong>Seguro:</strong>
                                         </div>
                                         <div className="col-6 text-right">
-                                            <small>{productDetails.price * 0.20}  €</small>
+                                            <small>{productDetails?.price * 0.20}  €</small>
                                         </div>
                                         <div className="col-6">
                                             <strong>Comision:</strong>
                                         </div>
                                         <div className="col-6 text-right">
-                                            <small>{props.product.price * 0.30} €</small>
+                                            <small>{productDetails?.price * 0.30} €</small>
                                         </div>
                                         <div className="col-6 mt-2">
                                             <strong>total:</strong>
@@ -254,7 +256,7 @@ const ProductDetails = (props) => {
                                         </div>
                                         {user && (
                                             <div>
-                                                {user.id !== productDetails.user_id && (
+                                                {user.id !== productDetails?.user_id && (
                                                     <Popconfirm title="Está apunto de rentar esta moto, está seguro de continuar?"
                                                         onConfirm={generateOrder} okText="Si" cancelText="No" >
                                                         <Button className="btn btn-outline-info" loading={loading}> Rentar </Button>
@@ -279,9 +281,7 @@ const ProductDetails = (props) => {
                         </div>
                     </div>
                 </div>
-            ) : (
-                    <Skeleton />
-                )}
+            </Skeleton>
         </div>
     )
 }
