@@ -36,7 +36,7 @@ const Views = () => {
       <Route path='/registro' component={Register} exact />
       <Route path='/ingreso' component={Login} exact />
       <Route path='/confirmation' component={Confirmation} exact />
-      <Route path='/catalogo/moto/:id' component={ProductDetails} exact />
+      <Route path='/catalogo/:moto/:id' component={ProductDetails} exact />
       <PrivateZone>
         <Route path='/perfil' component={Profile} exact />
         <Route path='/mis_motos' component={MyBikes} exact />
