@@ -25,7 +25,7 @@ const Catalog = ({ products }) => {
                 setRenderPage(filter.slice(0, 6))
                 setLoading(false)
             })
-    }, [])
+    }, [products])
 
     useEffect(() => {
         setRenderPage(productFilter?.slice(0, 6))

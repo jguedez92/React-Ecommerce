@@ -1,8 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import AdminOrder from './AdminOrder.jsx'
-const AdminOrders = ({orders}) => {
+import { notification } from 'antd';
+const AdminOrders = ({orders, user}) => {
 
+    useEffect(() => {
+        if (!user.role || user.role !== 'admin') {
+            notification.warning({ message: 'No Autorizado!', description: 'Este usuario no está autorizado para ingresar en esta seccion' })
+            history.push('/')
+        }
+    }, [user])
+
+    const history = useHistory()
     const [ admOrder, setAdmOrder] = useState(false);
     const [ordertData, setOrderData] = useState({})
     const allOrders = orders
@@ -53,6 +63,6 @@ const AdminOrders = ({orders}) => {
         </div>
     )
 }
-const mapStateToProps = state => ({ orders: state.orders.orders });
+const mapStateToProps = state => ({ orders: state.orders.orders, user: state.user.user });
 export default connect(mapStateToProps)( AdminOrders);
 

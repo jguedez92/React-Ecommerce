@@ -1,10 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import AdminBike from './AdminBike.jsx'
-import {  Select, Input, notification, Button } from 'antd';
+import { Select, Input, notification, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-const AdminBikes = ({ products }) => {
+const AdminBikes = ({ products, user }) => {
 
+    useEffect(() => {
+        if (!user.role || user.role !== 'admin') {
+            notification.warning({ message: 'No Autorizado!', description: 'Este usuario no está autorizado para ingresar en esta seccion' })
+            history.push('/')
+        }
+    }, [user])
+
+    const history = useHistory()
     const { Option } = Select;
     const [admUser, setAdmUser] = useState(false)
     const [loadingStatus, setLoadingStatus] = useState(false)
@@ -124,6 +133,6 @@ const AdminBikes = ({ products }) => {
     )
 }
 
-const mapStateToProps =(state)=> ({ products: state.products.products });
+const mapStateToProps = (state) => ({ products: state.products.products, user: state.user.user });
 export default connect(mapStateToProps)(AdminBikes);
 
