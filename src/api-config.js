@@ -2,7 +2,7 @@ let backendHost;
 if (window.location.href.includes('localhost')) {
     backendHost = 'http://localhost:8000/api'
 } else {
-    backendHost = 'https://restaurant-jg-api.herokuapp.com'
+    backendHost = 'https://git.heroku.com/laravel-e-commerce-api.git/api'
 }
 console.log(backendHost)
 export const API_URL = `${backendHost}/`;
