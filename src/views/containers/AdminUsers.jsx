@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import AdminUser from './AdminUser.jsx'
 import {  Select, Input, notification, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-const AdminUsers = ({ users }) => {
+const AdminUsers = ({ user, users }) => {
 
     useEffect(() => {
+        if (!user.role || user.role !== 'admin') {
+            notification.warning({ message: 'No Autorizado!', description: 'Este usuario no está autorizado para ingresar en esta seccion' })
+            history.push('/')
+        }
         setUsersList(users)
     }, [users])
 
+    const history = useHistory()
     const { Option } = Select;
     const [admUser, setAdmUser] = useState(false)
     const [loadingStatus, setLoadingStatus] = useState(false)
@@ -123,6 +129,6 @@ const AdminUsers = ({ users }) => {
     )
 }
 
-const mapStateToProps = state => ({ users: state.user.users });
+const mapStateToProps = state => ({ user: state.user.user, users: state.user.users });
 export default connect(mapStateToProps)(AdminUsers);
 
