@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState, } from 'react'
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom';
+import { Button } from 'antd';
+import imgDefault from '../../public/images/imgDefault.png'
+import { getAllProducts } from '../../redux/actions/products.js'
+import { IMAGES_URL } from '../../api-config';
+
 
 import Banner1 from '../../public/images/Banner1.png'
 import Banner2 from '../../public/images/Banner2.png'
 import Banner3 from '../../public/images/Banner3.png'
 
-const Home = () => {
+const Home = ({ products }) => {
+
+    const [productFilter, setProductFilter] = useState();
+    const history = useHistory()
+    useEffect(() => {
+        getAllProducts()
+            .then(res => {
+                const filter = res.data.filter(product => (product.status_for_renting === 'enabled' && product.detach))
+                setProductFilter(filter)
+            })
+    }, [])
+
+    const productDetails = (product) => {
+        history.push(`/catalogo/${product.model}/${product.id}`)
+    }
+
+
     return (
         <div>
             <div id="carouselExampleCaptions" className="carousel slide carousel-home" data-ride="carousel">
@@ -15,7 +38,7 @@ const Home = () => {
                 </ol>
                 <div className="carousel-inner ">
                     <div className="carousel-item active">
-                        <img src={Banner1} className="carousel-img img-lg d-none d-md-block w-100"  alt="..." />
+                        <img src={Banner1} className="carousel-img img-lg d-none d-md-block w-100" alt="..." />
                         <img src={Banner1} className="carousel-img d-sm-block d-md-none w-100" alt="..." />
                         <div className="carousel-caption d-none d-md-block">
                             <h3>Viaja a donde quieras!</h3>
@@ -23,7 +46,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="carousel-item">
-                        <img src={Banner2} className="carousel-img img-lg d-none d-md-block w-100"  alt="..." />
+                        <img src={Banner2} className="carousel-img img-lg d-none d-md-block w-100" alt="..." />
                         <img src={Banner2} className="carousel-img d-sm-block d-md-none w-100" alt="..." />
                         <div className="carousel-caption d-none d-md-block">
                             <h3>Amplio catalogo de multiples categorias</h3>
@@ -31,7 +54,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="carousel-item">
-                        <img src={Banner3} className="carousel-img img-lg d-none d-md-block w-100"  alt="..." />
+                        <img src={Banner3} className="carousel-img img-lg d-none d-md-block w-100" alt="..." />
                         <img src={Banner3} className="carousel-img d-sm-block d-md-none w-100" alt="..." />
                         <div className="carousel-caption d-none d-md-block">
                             <h3>Excelentes opciones para Touring</h3>
@@ -90,10 +113,65 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="container">
+                <hr className="featurette-divider"></hr>
+                <h2 className="featurette-heading lead-title">Motos Destacadas del Mes</h2>
+                <div className="col-sm-12 col-md-10 mx-auto mt-2 ">
+                    <div className="row d-flex featurette">
+                        {productFilter?.map(product =>
+                            <div className=" col-sm-9 col-md-4 animated bounceInUp ">
+                                <div className="card card-catalog mb-4 shadow-sm">
+                                    {product.image_path_1 ?
+                                        (<img src={IMAGES_URL + 'products/' + product.image_path_1} className="img-thumbnail p-1 rounded" alt="..." />)
+                                        : (<img src={imgDefault} alt="..." className="img-thumbnail p-1 rounded" />)}
+                                    <div className="card-body">
+                                        <div className="d-inline-block">
+                                            Licencia &nbsp;
+                                                            <strong className="mb-2 text-success">
+                                                {product.required_license}
+                                            </strong>
+                                        </div>
+                                        <div className="card-title">
+                                            <h6 className="pb-3 border-bottom">
+                                                {product.brand} - {product.model}
+                                            </h6>
+                                        </div>
+                                        <p className="card-text text-center font-weight-bolder">
+                                            {product.category.name}
+                                        </p>
+                                        <p className="card-text text-center">
+                                            <svg className="bi bi-geo-alt" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fillRule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                            </svg>
+                                            {product.city[0].toUpperCase() + product.city.substring(1)}
+                                        </p>
+                                    </div>
+                                    <div className="card-footer">
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <Button size='small' onClick={() => productDetails(product)}>
+                                                Detalles
+                                                            </Button>
+                                            <small className="text-muted text-center">
+                                                <div className="font-weight-bolder d-inline-block">
+                                                    Precio por dia &nbsp;
+                                                                </div>
+                                                <div>
+                                                    {product.price} €
+                                                                </div>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
 
             </div>
         </div>
 
     )
 }
-export default Home
+const mapStateToProps = ({ products }) => ({ products: products.products });
+export default connect(mapStateToProps)(Home);
