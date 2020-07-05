@@ -138,7 +138,7 @@ const Home = ({ products }) => {
                                             </h6>
                                         </div>
                                         <p className="card-text text-center font-weight-bolder">
-                                            {product.category.name}
+                                            {product.category_id}
                                         </p>
                                         <p className="card-text text-center">
                                             <svg className="bi bi-geo-alt" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
