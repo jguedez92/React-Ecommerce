@@ -121,7 +121,6 @@ const Home = ({ products }) => {
                     <div className="row d-flex featurette">
                         {productFilter?.map(product =>
                             <div className=" col-sm-9 col-md-4 animated bounceInUp ">
-                                {console.log(product)}
                                 <div className="card card-catalog mb-4 shadow-sm">
                                     {product.image_path_1 ?
                                         (<img src={IMAGES_URL + 'products/' + product.image_path_1} className="img-thumbnail p-1 rounded" alt="..." />)

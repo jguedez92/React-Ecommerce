@@ -1,9 +1,6 @@
 import React,{ useState }from 'react'
 import { Form, Input, Button, notification } from 'antd';
-
 import { register } from '../../redux/actions/users.js'
-
-
 const Register = props => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false)
@@ -19,13 +16,14 @@ const Register = props => {
             .then(res => {
                 setLoading(false)
                 notification.success({ message: 'Register', description: 'Se ha enviado un correo de confirmacion a su bandeja de entrada' })
+                localStorage.setItem('userId', res.data.userId)
                 setTimeout(() => {
-                    props.history.push('/')
+                    props.history.push('/confirmacion')
                 }, 1500);
             })
-            .catch(res => {
+            .catch(error => {
                 setLoading(false)
-                notification.error({ message: 'Register', description: res.response.data })
+                notification.error({ message: 'Error', description: 'hubo un error al crear el usuario'  })
             })
     };
 

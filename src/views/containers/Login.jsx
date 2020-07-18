@@ -13,12 +13,18 @@ const Login = (props) => {
         login(credentials)
             .then(res => {
                 setLoading(false);
+                if(res.data.user_activation){
+                    localStorage.setItem('userId', res.data.user_activation)
+                    notification.warning({ message: 'Atención', description: res.data.message })
+                    props.history.push('/confirmacion')
+                    return
+                }
                 notification.success({ message: 'Login', description: 'Bienvenido' })
-                props.history.push('/');
+                props.history.push('/')
             })
             .catch(error => {
                 setLoading(false);
-                notification.error({ message: 'Login', description: error.response.data.message })
+                notification.error({ message: 'Login', description: error.response.data })
             })
     };
 

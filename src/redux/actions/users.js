@@ -5,7 +5,12 @@ import {
 import store from '../store';
 
 export const register = async(user) => {
-    await axios.post(API_URL + 'users/register', user)
+    const res = await axios.post(API_URL + 'users/register', user)
+    return res
+}
+export const confirmation = async(data) => {
+    const res = await axios.post(API_URL + 'users/confirmation', data)
+    return res
 }
 export const login = async(credentials) => {
     const res = await axios.post(API_URL + 'users/login', credentials);
@@ -14,6 +19,7 @@ export const login = async(credentials) => {
         type: 'LOGIN',
         payload: res.data.user
     });
+    return res
 }
 export const updatePassword = async(user) => {
     await axios.post(API_URL + 'users/update_password', user, {
